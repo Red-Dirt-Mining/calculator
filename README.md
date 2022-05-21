@@ -1,3 +1,11 @@
+# TL;DR How do I get this thing running?
+
+Clone the repository to your machine and from the directory run `npm install` then `npm start`
+
+# Pull Requests
+
+Create a new branch titled like so: `{featureType}/{nym}/{featureName}`, e.g. `bug/nonceraider/block-reward`, then open a pull request against `master`. It's a good idea to raise an issue first before investing too much time.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
