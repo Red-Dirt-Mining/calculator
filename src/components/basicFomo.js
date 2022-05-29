@@ -22,7 +22,7 @@ export const BasicFomo = () => {
 
   return (
     <Grid container spacing={1} style={{ paddingBottom: "5vh" }}>
-      <Grid item xs={8}>
+      <Grid item xs={6}>
         <Card>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -32,15 +32,13 @@ export const BasicFomo = () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={6}>
         <Card>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Exchange Rate
+              Progress to difficulty adjustment
             </Typography>
-            <Typography variant="h7" component="div">
-              1 sat = 1 sat
-            </Typography>
+            <LinearProgressWithLabel value={49.9} countdown={7} />
           </CardContent>
         </Card>
       </Grid>
