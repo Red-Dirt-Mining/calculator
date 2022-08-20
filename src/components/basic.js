@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import {
   Grid,
   Typography,
@@ -15,9 +15,11 @@ import {
 } from "@mui/material"
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 import { Form, Formik } from "formik"
+import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
 import { BasicStats } from './basicStats'
 import { BasicFomo } from './basicFomo'
+import { getBlockHeight, getHashrate, getDifficultyAdjustment } from "../services/blockchain"
 import logo from './logo.jpg'
 
 const darkTheme = createTheme({
@@ -73,6 +75,16 @@ const calculateSubsidy = (blockHeight) => {
   // TODO: Cut off at end of emission schedule
   const epoch = Math.floor(blockHeight / constants.halvingEpoch)
   return 50 / Math.pow(2, epoch)
+}
+
+const calculateHalvingProgress = (blockHeight) => {
+  const epoch = Math.floor(blockHeight / constants.halvingEpoch)
+  const epochStart = epoch * constants.halvingEpoch
+  const epochEnd = (epoch + 1) * constants.halvingEpoch
+  const blocksLeft = epochEnd - blockHeight
+  const epochProgress = blockHeight - epochStart
+  const epochLength = epochEnd - epochStart
+  return {halvingProgress: epochProgress / epochLength, halvingBlocks: blocksLeft}
 }
 
 const createDataSet = (values = initialValues) => {
@@ -204,32 +216,57 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }))
 
 // V1 MUST-HAVES
-// FIXME: Block based time period
-// TODO: Halving adjustment
-// TODO: Toggle graph options
-// TODO: Hide "advanced" options
-// TODO: An average difficulty adjustment per epoch instead of annual change (e.g. 2% average upward difficulty per epoch)
-// TODO: Hook up progress to halving
-// TODO: Depreciation toggle against lifetime sats production. i.e. if half of sats are produced year 1, then ASICs depreciate by half that year
-        // Toggle should change to time period
-
+// FIXME: Block based time period – Nonce
+// TODO: Halving adjustment – Nonce to check what I mean here
+// TODO: Toggle graph options – RDM Outlaw https://recharts.org/en-US/examples/LegendEffectOpacity 
+// TODO: Hide "advanced" options – Do we need? Sensible defaults instead?
+// TODO: Copy for hover state on input fields – RDM Outlaw
+// TODO: Review field names – RDM Outlaw
+// TODO: Add block height, current hash rate cards – Nonce
+// TODO: Populate initial difficulty from API – Nonce
 
 // V1 COSMETIC
-// FIXME: Remove number input adornment
-// TODO: Decide on data series colors
-// TODO: onClick show full number, otherwise show abbreviated
+// FIXME: Remove number input adornment – RDM Outlaw
+// TODO: Decide on data series colors – Put to Storm/Jack
+// TODO: onClick show full number, otherwise show abbreviated – RDM Outlaw
+// TODO: Pull out data to the side to income statement instead of tooltip – Nonce
 
 // WISHLIST
+// TODO: An average difficulty adjustment per epoch instead of annual change (e.g. 2% average upward difficulty per epoch) – Think about the UX of this
 // TODO: Presets e.g. hashrate growth, price growth, etc.
 // TODO: Calculate for reinvesting in new HR
 // TODO: Mark where net position begins to decline when depreciation is higher than net profit
 // TODO: Switch between sats and dollars
 // TODO: Can we do real-time graph updates as you scroll values on a given field? Helps get a sense of how certain inputs are affecting profitability
+// TODO: Depreciation toggle against lifetime sats production. i.e. if half of sats are produced year 1, then ASICs depreciate by half that year
+        // Toggle should change to time period
 
 
 let data = createDataSet(initialValues)
 
 const Basic = () => {
+  const [height, setHeight] = useState(0)
+  const [difficultyProgress, setDifficultyProgress] = useState(0)
+  const [difficultyBlocks, setDifficultyBlocks] = useState(0)
+  const [currentDifficulty, setCurrentDifficulty] = useState(0)
+  const [halvingProgress, setHalvingProgress] = useState(0)
+
+  const loadData = async () => {
+    const height = await getBlockHeight()
+    const hashrate = await getHashrate()
+    const difficulty = await getDifficultyAdjustment()
+    setHalvingProgress(calculateHalvingProgress(height))
+    setHeight(height)
+    setDifficultyProgress(difficulty.progressPercent)
+    setDifficultyBlocks(difficulty.remainingBlocks)
+    setCurrentDifficulty(hashrate.currentDifficulty)
+  }
+
+  useEffect(() => {
+    loadData()
+    return () => {}
+  }, [height])
+
   return (
     <Formik
         initialValues={initialValues}
@@ -261,8 +298,8 @@ const Basic = () => {
             </AppBar>
           </Box>
           <Form>
-            <Grid container spacing={3} backgroundColor="grey.900" height="100vh" padding="20px">
-              <Grid item xs={2}>
+            <Grid container spacing={3} backgroundColor="grey.900" padding="20px">
+              <Grid item lg={2} xs={12}>
                 <Typography variant="h6" component="h2" color="text.secondary" >Inputs</Typography>
                 <br />
                 <div className="form-group">
@@ -594,7 +631,14 @@ const Basic = () => {
                 </Button>
               </Grid>
               <Grid item xs={6}>
-                <BasicFomo />
+                <BasicBlurb />
+                <BasicFomo
+                  height={height}
+                  difficultyProgress={difficultyProgress}
+                  difficultyBlocks={difficultyBlocks}
+                  halvingProgress={halvingProgress.halvingProgress}
+                  halvingBlocks={halvingProgress.halvingBlocks}
+                />
                 <BasicStats data={data.otherData} />
                 <BasicGraph data={data.timeSeriesData} />
               </Grid>

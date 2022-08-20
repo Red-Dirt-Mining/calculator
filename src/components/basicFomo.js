@@ -12,13 +12,18 @@ function LinearProgressWithLabel(props) {
         <Typography variant="body2" color="text.secondary">{`${Math.round(
           props.value * 10
         ) / 10}%`}</Typography>
-        <Typography variant="body2" color="text.secondary">{`${props.countdown} days left`}</Typography>
+        <Typography variant="body2" color="text.secondary">{`~ ${props.countdown} days left`}</Typography>
       </Box>
     </Box>
   );
 }
 
-export const BasicFomo = () => {
+const calculateDaysFromBlocks = (blocks) => {
+  return ((blocks*10)/60/24).toFixed(1)
+}
+
+export const BasicFomo = (props) => {
+  const { height, difficultyProgress, difficultyBlocks, halvingProgress, halvingBlocks } = props
 
   return (
     <Grid container spacing={1} style={{ paddingBottom: "5vh" }}>
@@ -28,7 +33,7 @@ export const BasicFomo = () => {
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               Progress to next halving
             </Typography>
-            <LinearProgressWithLabel value={49.9} countdown={729} />
+            <LinearProgressWithLabel value={halvingProgress * 100} countdown={calculateDaysFromBlocks(halvingBlocks)} />
           </CardContent>
         </Card>
       </Grid>
@@ -38,7 +43,7 @@ export const BasicFomo = () => {
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
               Progress to difficulty adjustment
             </Typography>
-            <LinearProgressWithLabel value={49.9} countdown={7} />
+            <LinearProgressWithLabel value={difficultyProgress} countdown={calculateDaysFromBlocks(difficultyBlocks)} />
           </CardContent>
         </Card>
       </Grid>
