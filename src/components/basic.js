@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+
 import {
   Grid,
   Typography,
@@ -19,7 +20,7 @@ import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
 import { BasicStats } from './basicStats'
 import { BasicFomo } from './basicFomo'
-import { getBlockHeight, getHashrate, getDifficultyAdjustment } from "../services/blockchain"
+import { getBlockHeight, getHashrate, getDifficultyAdjustment, getDifficulty } from "../services/blockchain"
 import logo from './logo.jpg'
 
 const darkTheme = createTheme({
@@ -32,6 +33,7 @@ const initialValues = {
   months: 24,
   initialPrice: 30000,
   networkDifficulty: 28587155782195,
+  abbreviatedDifficulty: 28.55,
   hashrate: 1200,
   powerConsumption: 35000,
   powerCostPerKwh: 0.06,
@@ -41,9 +43,9 @@ const initialValues = {
   otherFees: 0,
   difficultyIncrement: 50,
   priceIncrement: 100,
-  capex: 229022526,
-  opex: 1000,
-  hwValue: 229022526,
+  capex: 0,
+  opex: 0,
+  hwValue: 0,
   hwDepreciation: 20,
   infraValue: 0,
   infraDepreciation: 0,
@@ -84,11 +86,11 @@ const calculateHalvingProgress = (blockHeight) => {
   const blocksLeft = epochEnd - blockHeight
   const epochProgress = blockHeight - epochStart
   const epochLength = epochEnd - epochStart
-  return {halvingProgress: epochProgress / epochLength, halvingBlocks: blocksLeft}
+  return { halvingProgress: epochProgress / epochLength, halvingBlocks: blocksLeft }
 }
 
 const createDataSet = (values = initialValues) => {
-  console.log({values})
+  console.log({ values })
   const annualDifficultyIncrease = values.networkDifficulty * values.difficultyIncrement / 100 // TODO: calculate per epoch
   const difficultyIncrementPerEpoch = 0
   const annualPriceIncrease = values.priceIncrement * values.initialPrice / 100
@@ -112,8 +114,8 @@ const createDataSet = (values = initialValues) => {
 
   let lowestMonthProfit = 0
   let breakevenElectricity = 0
-  
-  const timeSeriesData = Array.apply(null, Array(values.months)).map(function (x, i) { return {month: i + 1} })
+
+  const timeSeriesData = Array.apply(null, Array(values.months)).map(function (x, i) { return { month: i + 1 } })
   timeSeriesData.forEach((d, i) => {
     const exchangeRate = values.initialPrice + ((annualPriceIncrease / 12) * i)
     const hashrate = networkHashrate(values.networkDifficulty + ((annualDifficultyIncrease / 12) * i))
@@ -199,7 +201,7 @@ const createDataSet = (values = initialValues) => {
     timeSeriesData,
     otherData,
   }
-  console.log({data})
+  console.log({ data })
   return data
 }
 
@@ -239,7 +241,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 // TODO: Switch between sats and dollars
 // TODO: Can we do real-time graph updates as you scroll values on a given field? Helps get a sense of how certain inputs are affecting profitability
 // TODO: Depreciation toggle against lifetime sats production. i.e. if half of sats are produced year 1, then ASICs depreciate by half that year
-        // Toggle should change to time period
+// Toggle should change to time period
 
 
 let data = createDataSet(initialValues)
@@ -261,26 +263,32 @@ const Basic = () => {
     setDifficultyBlocks(difficulty.remainingBlocks)
     setCurrentDifficulty(hashrate.currentDifficulty)
   }
-
   useEffect(() => {
     loadData()
-    return () => {}
+    return () => { }
   }, [height])
 
+  //modify network difficulty input
+  const difficultyShortened = currentDifficulty.toString().length - 5;
+  const difficultyDecimal = currentDifficulty / Math.pow(10, difficultyShortened)
+  const difficultyFinal = difficultyDecimal.toFixed(2)
+
   return (
+
+
     <Formik
-        initialValues={initialValues}
-        onSubmit={(values, { setSubmitting }) => {
-          const dataSet = createDataSet(values)
-          data = dataSet
-          console.log({dataSet})
-          setSubmitting(false)
-        }}
-      >
-        {({ isSubmitting, values, handleChange }) => (
+      initialValues={initialValues}
+      onSubmit={(values, { setSubmitting }) => {
+        const dataSet = createDataSet(values)
+        data = dataSet
+        console.log({ dataSet })
+        setSubmitting(false)
+      }}
+    >
+      {({ isSubmitting, values, handleChange }) => (
         <ThemeProvider theme={darkTheme}>
           <Box sx={{ flexGrow: 1, pb: 3, }}>
-            <AppBar position="static" sx={{ backgroundColor: constants.rdmColors.red}}>
+            <AppBar position="static" sx={{ backgroundColor: constants.rdmColors.red }}>
               <Toolbar>
                 <IconButton
                   size="large"
@@ -325,6 +333,7 @@ const Basic = () => {
                     name="initialPrice"
                     value={values.initialPrice}
                     onChange={handleChange}
+                  
                     size="small"
                     fullWidth
                     type='number'
@@ -338,12 +347,15 @@ const Basic = () => {
                     label="Network Difficulty"
                     id="networkDifficulty"
                     name="networkDifficulty"
-                    value={values.networkDifficulty}
+                    value={difficultyFinal}
                     onChange={handleChange}
                     size="small"
                     fullWidth
                     type='number'
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                    InputProps={{
+                      inputMode: 'numeric', pattern: '[0-9]*',
+                      endAdornment: <InputAdornment position="end">T</InputAdornment>,
+                    }}
                   />
                   <br /><br />
                   <TextField
@@ -425,7 +437,7 @@ const Basic = () => {
                     title={
                       <React.Fragment>
                         <Typography color="inherit">Average Transaction Fees</Typography>
-                          {"Average value of transaction fees per block mined."}
+                        {"Average value of transaction fees per block mined."}
                       </React.Fragment>
                     }
                   >
@@ -437,7 +449,7 @@ const Basic = () => {
                       onChange={handleChange}
                       size="small"
                       fullWidth
-                    type='number'
+                      type='number'
                       InputProps={{
                         inputMode: 'numeric', pattern: '[0-9]*',
                         endAdornment: <InputAdornment position="end">BTC</InputAdornment>,
@@ -449,7 +461,7 @@ const Basic = () => {
                     title={
                       <React.Fragment>
                         <Typography color="inherit">Other Fees</Typography>
-                          {"Additional operational expenses such as dev fees for firmware, management and hosting fees, etc."}
+                        {"Additional operational expenses such as dev fees for firmware, management and hosting fees, etc."}
                       </React.Fragment>
                     }
                   >
@@ -461,7 +473,7 @@ const Basic = () => {
                       onChange={handleChange}
                       size="small"
                       fullWidth
-                    type='number'
+                      type='number'
                       InputProps={{
                         inputMode: 'numeric', pattern: '[0-9]*',
                         endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -649,5 +661,7 @@ const Basic = () => {
     </Formik>
   )
 }
+
+
 
 export default Basic
