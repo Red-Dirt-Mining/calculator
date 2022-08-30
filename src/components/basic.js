@@ -749,22 +749,7 @@ const Basic = () => {
                     />
                   </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="HODL Ratio"
-                    id="hodlRatio"
-                    name="hodlRatio"
-                    value={values.hodlRatio}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    disabled
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                    }}
-                  />
-                  <br /><br />
+                
                   <HtmlTooltip
                     title={
                       <React.Fragment>
