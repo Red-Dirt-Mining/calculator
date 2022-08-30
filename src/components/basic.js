@@ -311,127 +311,198 @@ const Basic = () => {
                 <Typography variant="h6" component="h2" color="text.secondary" >Inputs</Typography>
                 <br />
                 <div className="form-group">
-                  <TextField
-                    label="Time Period"
-                    id="months"
-                    name="months"
-                    value={values.months}
-                    onChange={handleChange}
-                    size="small"
-                    // disabled
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">months</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Time Period</Typography>
+                        {"The length of time to calculate profitability for in months."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Time Period"
+                      id="months"
+                      name="months"
+                      value={values.months}
+                      onChange={handleChange}
+                      size="small"
+                      // disabled
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">months</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Initial Price"
-                    id="initialPrice"
-                    name="initialPrice"
-                    value={values.initialPrice}
-                    onChange={handleChange}
-                  
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">USD</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Initial Price</Typography>
+                        {"Price of Bitcoin in USD at the beginning of the time period."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Initial Price"
+                      id="initialPrice"
+                      name="initialPrice"
+                      value={values.initialPrice}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">USD</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Network Difficulty"
-                    id="networkDifficulty"
-                    name="networkDifficulty"
-                    value={difficultyFinal}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">T</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Network Difficulty</Typography>
+                        {"Difficulty to mine the next block."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Network Difficulty"
+                      id="networkDifficulty"
+                      name="networkDifficulty"
+                      value={difficultyFinal}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">T</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Hashrate"
-                    id="hashrate"
-                    name="hashrate"
-                    value={values.hashrate}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">TH/s</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Hashrate</Typography>
+                        {"Size of mining operation in TH/s."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Hashrate"
+                      id="hashrate"
+                      name="hashrate"
+                      value={values.hashrate}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">TH/s</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Power Consumption"
-                    id="powerConsumption"
-                    name="powerConsumption"
-                    value={values.powerConsumption}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">W</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Power Consumption</Typography>
+                        {"Total amount of power consumed in a given time period in Watts."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Power Consumption"
+                      id="powerConsumption"
+                      name="powerConsumption"
+                      value={values.powerConsumption}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">W</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Power price per kWh"
-                    id="powerCostPerKwh"
-                    name="powerCostPerKwh"
-                    value={values.powerCostPerKwh}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">USD</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Power Rate</Typography>
+                        {"Power price denominated in USD per Kwh."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Power Rate"
+                      id="powerCostPerKwh"
+                      name="powerCostPerKwh"
+                      value={values.powerCostPerKwh}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">USD</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Block Subsidy"
-                    id="blockSubsidy"
-                    name="blockSubsidy"
-                    value={values.blockSubsidy}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">BTC</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Block Subsidy</Typography>
+                        {"Amount of new Bitcoin minted per block."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Block Subsidy"
+                      id="blockSubsidy"
+                      name="blockSubsidy"
+                      value={values.blockSubsidy}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">BTC</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Pool Fee"
-                    id="poolFee"
-                    name="poolFee"
-                    value={values.poolFee}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Pool Fee</Typography>
+                        {"Percentage fees paid to a mining pool."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Pool Fee"
+                      id="poolFee"
+                      name="poolFee"
+                      value={values.poolFee}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
                   <HtmlTooltip
                     title={
@@ -486,125 +557,197 @@ const Basic = () => {
                 <Typography variant="h6" component="h2" color="text.secondary" >Advanced</Typography>
                 <br />
                 <div className="form-group">
-                  <TextField
-                    label="Difficulty Increment"
-                    id="difficultyIncrement"
-                    name="difficultyIncrement"
-                    value={values.difficultyIncrement}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Difficulty Increment</Typography>
+                        {"Percentage change in difficulty per year."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Difficulty Increment"
+                      id="difficultyIncrement"
+                      name="difficultyIncrement"
+                      value={values.difficultyIncrement}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Price Increment"
-                    id="priceIncrement"
-                    name="priceIncrement"
-                    value={values.priceIncrement}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Price Increment</Typography>
+                        {"Percentage change in price per year."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Price Increment"
+                      id="priceIncrement"
+                      name="priceIncrement"
+                      value={values.priceIncrement}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="CAPEX"
-                    id="capex"
-                    name="capex"
-                    value={values.capex}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">sats</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Capital Expenditure</Typography>
+                        {"Initial capital expenditure denominated in sats."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="CAPEX"
+                      id="capex"
+                      name="capex"
+                      value={values.capex}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">sats</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Monthly OPEX"
-                    id="opex"
-                    name="opex"
-                    value={values.opex}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">USD</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Monthly Operating Expenses</Typography>
+                        {"Monthly operating expenses denominated in USD."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Monthly OPEX"
+                      id="opex"
+                      name="opex"
+                      value={values.opex}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">USD</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Initial HW Value"
-                    id="hwValue"
-                    name="hwValue"
-                    value={values.hwValue}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">sats</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Initial Hardware Value</Typography>
+                        {"Value of hardware at time of purchase denominated in sats."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Initial Hardware Value"
+                      id="hwValue"
+                      name="hwValue"
+                      value={values.hwValue}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">sats</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Hardware Appr./Depr."
-                    id="hwDepreciation"
-                    name="hwDepreciation"
-                    value={values.hwDepreciation}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Change in Hardware Value</Typography>
+                        {"Percentage appreciation or depreciation per year in hardware."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Change in Hardware Value"
+                      id="hwDepreciation"
+                      name="hwDepreciation"
+                      value={values.hwDepreciation}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Initial Infra Value"
-                    id="infraValue"
-                    name="infraValue"
-                    value={values.infraValue}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">sats</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Initial Infrastructure Value</Typography>
+                        {"Value of infrastructure at time of purchase denominated in sats."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Initial Infrastructure Value"
+                      id="infraValue"
+                      name="infraValue"
+                      value={values.infraValue}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">sats</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
-                  <TextField
-                    label="Infra Appr./Depr."
-                    id="infraDepreciation"
-                    name="infraDepreciation"
-                    value={values.infraDepreciation}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Change in Hardware Value</Typography>
+                        {"Percentage appreciation or depreciation per year in infrastructure"}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Change in Infrastructure Value"
+                      id="infraDepreciation"
+                      name="infraDepreciation"
+                      value={values.infraDepreciation}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                   <br /><br />
                   <TextField
                     label="HODL Ratio"
@@ -622,20 +765,29 @@ const Basic = () => {
                     }}
                   />
                   <br /><br />
-                  <TextField
-                    label="Discount Rate"
-                    id="discountRate"
-                    name="discountRate"
-                    value={values.discountRate}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    type='number'
-                    InputProps={{
-                      inputMode: 'numeric', pattern: '[0-9]*',
-                      endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
-                    }}
-                  />
+                  <HtmlTooltip
+                    title={
+                      <React.Fragment>
+                        <Typography color="inherit">Discount Rate</Typography>
+                        {"Interest rate used to discount future cashflows to present value."}
+                      </React.Fragment>
+                    }
+                  >
+                    <TextField
+                      label="Discount Rate"
+                      id="discountRate"
+                      name="discountRate"
+                      value={values.discountRate}
+                      onChange={handleChange}
+                      size="small"
+                      fullWidth
+                      type='number'
+                      InputProps={{
+                        inputMode: 'numeric', pattern: '[0-9]*',
+                        endAdornment: <InputAdornment position="end">%/year</InputAdornment>,
+                      }}
+                    />
+                  </HtmlTooltip>
                 </div>
                 <br />
                 <Button type="submit" fullWidth variant="outlined" disabled={isSubmitting}>
