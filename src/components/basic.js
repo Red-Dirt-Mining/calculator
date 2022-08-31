@@ -224,7 +224,6 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 // TODO: Hide "advanced" options – Do we need? Sensible defaults instead?
 // TODO: Copy for hover state on input fields – RDM Outlaw
 // TODO: Review field names – RDM Outlaw
-// TODO: Add block height, current hash rate cards – Nonce
 // TODO: Populate initial difficulty from API – Nonce
 
 // V1 COSMETIC
@@ -234,6 +233,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 // TODO: Pull out data to the side to income statement instead of tooltip – Nonce
 
 // WISHLIST
+// TODO: Add block height, current hash rate cards – Nonce
 // TODO: An average difficulty adjustment per epoch instead of annual change (e.g. 2% average upward difficulty per epoch) – Think about the UX of this
 // TODO: Presets e.g. hashrate growth, price growth, etc.
 // TODO: Calculate for reinvesting in new HR
@@ -781,15 +781,15 @@ const Basic = () => {
               </Grid>
               <Grid item xs={6}>
                 <BasicBlurb />
-                <BasicFomo
+                {/* <BasicFomo
                   height={height}
                   difficultyProgress={difficultyProgress}
                   difficultyBlocks={difficultyBlocks}
                   halvingProgress={halvingProgress.halvingProgress}
                   halvingBlocks={halvingProgress.halvingBlocks}
-                />
-                <BasicStats data={data.otherData} />
+                /> */}
                 <BasicGraph data={data.timeSeriesData} />
+                <BasicStats data={data.otherData} />
               </Grid>
             </Grid>
           </Form>

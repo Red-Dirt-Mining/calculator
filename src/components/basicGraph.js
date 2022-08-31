@@ -14,6 +14,15 @@ import {
   Legend,
 } from 'recharts'
 
+const graphColors = {
+  cashflow: '#B04231',
+  hardware: '#053A42',
+  netPosition: '#2F8F9E',
+  breakeven: '#7D443C',
+  netMonthlyProfit: '#638269',
+  monthlyRevenue: '#FAF4D4',
+}
+
 export const BasicGraph = ({ data }) => {
   const breakeven = data[0].breakeven
 
@@ -51,14 +60,15 @@ export const BasicGraph = ({ data }) => {
           }}
         >
           <XAxis
-              dataKey="month"
-              label={{ value: 'Time Period', offset: -20, position: 'insideBottom', fill: "#ff7300" }}
+            dataKey="month"
+            tick={null}
           />
           <YAxis 
             unit=" sats"
-            /* label={{ value: 'Cumulative Profit', offset: -80, angle: -90, position: 'insideLeft', fill: "#ff7300" }} */
+            stroke='#FFFFFF'
           />
-          <CartesianGrid stroke="#f5f5f5" />
+          <YAxis yAxisId="right" orientation="right" tick={null} />
+          <CartesianGrid stroke="#D9D9D9B2" />
           <Tooltip
               cursor={{ strokeDasharray: '3 3' }}
               formatter={(value) =>
@@ -90,6 +100,14 @@ export const BasicGraph = ({ data }) => {
                   />
               </linearGradient>
           </defs>
+          <Bar dataKey="monthlyRevenue" name='Net Monthly Revenue' barSize={20} fill={graphColors.monthlyRevenue} yAxisId='right' />
+          <Bar dataKey="netMonthlyProfit" name='Net Monthly Profit' barSize={20} fill={graphColors.netMonthlyProfit} yAxisId='right' />
+          <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke={graphColors.hardware} fill={graphColors.hardware} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="cashflow" name='Cashflow' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="netPosition" name='Net Position' stroke={graphColors.netPosition} fill={graphColors.netPosition} strokeWidth={3} dot={null} />
+          <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeDasharray="4 4">
+            <Label fill={graphColors.breakeven} position='top'>CAPEX breakeven</Label>
+          </ReferenceLine>
           <Area
               type="monotone"
               dataKey="netProfitCumulative"
@@ -106,14 +124,6 @@ export const BasicGraph = ({ data }) => {
               strokeWidth={2}
               fill="url(#colorUv)"
           />
-          <Bar dataKey="monthlyRevenue" name='Net Monthly Revenue' barSize={20} fill="#413ea0" />
-          <Bar dataKey="netMonthlyProfit" name='Net Monthly Profit' barSize={20} fill="grey" />
-          <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke="#ff7300" fill="#ff7300" />
-          <Line type="monotone" dataKey="cashflow" name='Cashflow' stroke="#ff7300" fill="#ff7300" />
-          <Line type="monotone" dataKey="netPosition" name='Net Position' stroke="#ff7300" fill="#ff7300" />
-          <ReferenceLine y={breakeven} stroke="red" strokeDasharray="3 3">
-            <Label fill='red' position='top'>CAPEX breakeven</Label>
-          </ReferenceLine>
           <Legend onClick={selectSeries} />
         </ComposedChart>
       </ResponsiveContainer>
