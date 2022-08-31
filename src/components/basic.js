@@ -33,7 +33,6 @@ const initialValues = {
   months: 24,
   initialPrice: 30000,
   networkDifficulty: 28587155782195,
-  abbreviatedDifficulty: 28.55,
   hashrate: 1200,
   powerConsumption: 35000,
   powerCostPerKwh: 0.06,
