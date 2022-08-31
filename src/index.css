@@ -12,6 +12,18 @@ code {
     monospace;
 }
 
+/* Remove number input adornments on Chrome, Safari, Edge, Opera */ 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 @font-face {
   font-family: 'Montserrat';
   src: url('fonts/Montserrat/Montserrat-VariableFont_wght.ttf');
