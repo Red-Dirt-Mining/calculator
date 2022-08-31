@@ -267,13 +267,13 @@ const Basic = () => {
     return () => { }
   }, [height])
 
-  //modify network difficulty input
-  const difficultyShortened = currentDifficulty.toString().length - 5;
-  const difficultyDecimal = currentDifficulty / Math.pow(10, difficultyShortened)
-  const difficultyFinal = difficultyDecimal.toFixed(2)
+  const convertToTerra = (value) => {
+    return (value / Math.pow(10, 12)).toFixed(2)
+  }
+
+  initialValues.networkDifficulty = currentDifficulty.toFixed(0) // convertToTerra(currentDifficulty)
 
   return (
-
 
     <Formik
       initialValues={initialValues}
@@ -325,7 +325,6 @@ const Basic = () => {
                       value={values.months}
                       onChange={handleChange}
                       size="small"
-                      // disabled
                       fullWidth
                       type='number'
                       InputProps={{
@@ -371,14 +370,14 @@ const Basic = () => {
                       label="Network Difficulty"
                       id="networkDifficulty"
                       name="networkDifficulty"
-                      value={difficultyFinal}
+                      value={values.networkDifficulty}
                       onChange={handleChange}
                       size="small"
                       fullWidth
                       type='number'
                       InputProps={{
                         inputMode: 'numeric', pattern: '[0-9]*',
-                        endAdornment: <InputAdornment position="end">T</InputAdornment>,
+                        // endAdornment: <InputAdornment position="end">T</InputAdornment>,
                       }}
                     />
                   </HtmlTooltip>
