@@ -20,7 +20,7 @@ import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
 import { BasicStats } from './basicStats'
 import { BasicFomo } from './basicFomo'
-import { getBlockHeight, getHashrate, getDifficultyAdjustment, getDifficulty } from "../services/blockchain"
+import { getBlockHeight, getHashrate, getDifficultyAdjustment } from "../services/blockchain"
 import logo from './logo.jpg'
 
 const darkTheme = createTheme({
