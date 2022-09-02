@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { Flex, Grid, GridItem, Tooltip, Input, Heading, Text, Button, FormControl, FormLabel, Box, VStack, InputLeftElement, InputRightElement, InputGroup } from "@chakra-ui/react"
+import { Flex, Tooltip, Input, Heading, Text, Button, FormControl, FormLabel, Box, VStack, InputRightElement, InputGroup } from "@chakra-ui/react"
 // import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
-import { BasicStats } from './basicStats'
-import { BasicFomo } from './basicFomo'
+// import { BasicStats } from './basicStats'
 import { getBlockHeight, getHashrate, getDifficultyAdjustment } from "../services/blockchain"
-import constants from "../helpers/constants"
 import initialValues from "../helpers/initialValues"
 const { createDataSet, calculateHalvingProgress/* , convertToTerra */ } = require("../services/crunchNumbers")
 
@@ -674,14 +672,6 @@ const Basic = () => {
                   </Button>
                 </Box>
                 <Box flex={4} p={2}>
-                  
-                  {/* <BasicFomo
-                    height={height}
-                    difficultyProgress={difficultyProgress}
-                    difficultyBlocks={difficultyBlocks}
-                    halvingProgress={halvingProgress.halvingProgress}
-                    halvingBlocks={halvingProgress.halvingBlocks}
-                  /> */}
                   <BasicGraph data={data.timeSeriesData} />
                   {/* <BasicStats data={data.otherData} /> */}
                   </Box>
