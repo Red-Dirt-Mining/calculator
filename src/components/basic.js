@@ -25,27 +25,22 @@ const { createDataSet, calculateHalvingProgress/* , convertToTerra */ } = requir
 // FIXME: Block based time period – Nonce
 // TODO: Halving adjustment – Nonce to check what I mean here
 // TODO: Toggle graph options – RDM Outlaw https://recharts.org/en-US/examples/LegendEffectOpacity 
-// TODO: Hide "advanced" options – Do we need? Sensible defaults instead?
-// TODO: Copy for hover state on input fields – RDM Outlaw
-// TODO: Review field names – RDM Outlaw
 // TODO: Populate initial difficulty from API – Nonce
 
 // V1 COSMETIC
-// FIXME: Remove number input adornment – RDM Outlaw
-// TODO: Decide on data series colors – Put to Storm/Jack
-// TODO: onClick show full number, otherwise show abbreviated – RDM Outlaw
 // TODO: Pull out data to the side to income statement instead of tooltip – Nonce
 
 // WISHLIST
 // TODO: Add block height, current hash rate cards – Nonce
+// TODO: onClick show full number, otherwise show abbreviated – RDM Outlaw
 // TODO: An average difficulty adjustment per epoch instead of annual change (e.g. 2% average upward difficulty per epoch) – Think about the UX of this
 // TODO: Presets e.g. hashrate growth, price growth, etc.
 // TODO: Calculate for reinvesting in new HR
 // TODO: Mark where net position begins to decline when depreciation is higher than net profit
 // TODO: Switch between sats and dollars
 // TODO: Can we do real-time graph updates as you scroll values on a given field? Helps get a sense of how certain inputs are affecting profitability
-// TODO: Depreciation toggle against lifetime sats production. i.e. if half of sats are produced year 1, then ASICs depreciate by half that year
-// Toggle should change to time period
+// TODO: Depreciation toggle against lifetime sats production. i.e. if half of sats are produced year 1, then ASICs depreciate by half that year. Toggle should change to time period
+// TODO: Hide "advanced" options – Do we need? Sensible defaults instead?
 
 
 let data = createDataSet(initialValues)
@@ -78,7 +73,6 @@ const Basic = () => {
     <Box
       w={'full'}
       h={'100vh'}
-      // background gradient
       bgGradient="linear(180deg, #181919 18.75%, #7D443C 100%)"
       >
       <BasicBlurb />
@@ -110,55 +104,31 @@ const Basic = () => {
                         <React.Fragment>
                           <Text color={'white'}>Time Period</Text>
                           <Text color={'white'}>The time period you want to calculate profitability for.</Text>
-                          {/* "The length of time to calculate profitability for in months." */}
                         </React.Fragment>
                       }
                     >
                       <FormControl>
                         <FormLabel htmlFor="months" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Time Period</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="months"
-                          name="months"
-                          value={values.months}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            /* endAdornment: <InputAdornment position="end">months</InputAdornment>, */
-                          }}
-                        />
-                      </FormControl>
-                    </Tooltip>
-                    <br /><br />
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Initial Price</Text>
-                          {"Price of Bitcoin in USD at the beginning of the time period."}
-                        </React.Fragment>
-                      }
-                    >
-                      <FormControl>
-                        <FormLabel htmlFor="initialPrice" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Price</FormLabel>
                         <InputGroup>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="initialPrice"
-                          name="initialPrice"
-                          value={values.initialPrice}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="months"
+                            name="months"
+                            value={values.months}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement
+                            children="months"
+                            color={'white'}
+                            opacity={0.6}
+                            pb={4}
+                            pr={6}
+                          />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
@@ -166,7 +136,35 @@ const Basic = () => {
                     <Tooltip
                       label={
                         <React.Fragment>
-                          <Text color="inherit">Network Difficulty</Text>
+                          <Text color={'white'}>Initial Price</Text>
+                          {"Price of Bitcoin in USD at the beginning of the time period."}
+                        </React.Fragment>
+                      }
+                    >
+                      <FormControl>
+                        <FormLabel htmlFor="initialPrice" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Price</FormLabel>
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="initialPrice"
+                            name="initialPrice"
+                            value={values.initialPrice}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
+                        </InputGroup>
+                      </FormControl>
+                    </Tooltip>
+                    <br /><br />
+                    <Tooltip
+                      label={
+                        <React.Fragment>
+                          <Text color={'white'}>Network Difficulty</Text>
                           {"Difficulty to mine the next block."}
                         </React.Fragment>
                       }
@@ -184,10 +182,6 @@ const Basic = () => {
                           onChange={handleChange}
                           size="small"
                           type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            // endAdornment: <InputAdornment position="end">T</InputAdornment>,
-                          }}
                         />
                       </FormControl>
                     </Tooltip>
@@ -202,22 +196,21 @@ const Basic = () => {
                     >
                       <FormControl>
                         <FormLabel htmlFor="hashrate" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Hashrate</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="hashrate"
-                          name="hashrate"
-                          value={values.hashrate}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            /* endAdornment: <InputAdornment position="end">TH/s</InputAdornment>, */
-                          }}
-                        />
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="hashrate"
+                            name="hashrate"
+                            value={values.hashrate}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' children={'TH/s'} />
+                        </InputGroup>
                       </FormControl>
                     </Tooltip>
                     <br /><br />
@@ -231,22 +224,21 @@ const Basic = () => {
                     >
                       <FormControl>
                         <FormLabel htmlFor="powerConsumption" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Power Consumption</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="powerConsumption"
-                          name="powerConsumption"
-                          value={values.powerConsumption}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            /* endAdornment: <InputAdornment position="end">W</InputAdornment>, */
-                          }}
-                        />
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="powerConsumption"
+                            name="powerConsumption"
+                            value={values.powerConsumption}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'W'} />
+                        </InputGroup>
                       </FormControl>
                     </Tooltip>
                     <br /><br />
@@ -260,22 +252,21 @@ const Basic = () => {
                     >
                       <FormControl>
                         <FormLabel htmlFor="powerCostPerKwh" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Power Rate</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="powerCostPerKwh"
-                          name="powerCostPerKwh"
-                          value={values.powerCostPerKwh}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            /* endAdornment: <InputAdornment position="end">USD</InputAdornment>, */
-                          }}
-                        />
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="powerCostPerKwh"
+                            name="powerCostPerKwh"
+                            value={values.powerCostPerKwh}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
+                        </InputGroup>
                       </FormControl>
                     </Tooltip>
                     <br /><br />
@@ -289,22 +280,21 @@ const Basic = () => {
                     >
                       <FormControl>
                         <FormLabel htmlFor="blockSubsidy" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Block Subsidy</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="blockSubsidy"
-                          name="blockSubsidy"
-                          value={values.blockSubsidy}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            /* endAdornment: <InputAdornment position="end">BTC</InputAdornment>, */
-                          }}
-                        />
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="blockSubsidy"
+                            name="blockSubsidy"
+                            value={values.blockSubsidy}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
+                        </InputGroup>
                       </FormControl>
                     </Tooltip>
                     <br /><br />
@@ -318,22 +308,21 @@ const Basic = () => {
                     >
                       <FormControl>
                         <FormLabel htmlFor="poolFee" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Pool Fee</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="poolFee"
-                          name="poolFee"
-                          value={values.poolFee}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            /* endAdornment: <InputAdornment position="end">%</InputAdornment>, */
-                          }}
-                        />
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="poolFee"
+                            name="poolFee"
+                            value={values.poolFee}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
+                        </InputGroup>
                       </FormControl>
                     </Tooltip>
                     <br /><br />
@@ -347,22 +336,21 @@ const Basic = () => {
                     >
                       <FormControl>
                         <FormLabel htmlFor="txFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Average Transaction Fees</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="txFees"
-                          name="txFees"
-                          value={values.txFees}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                            /* endAdornment: <InputAdornment position="end">BTC</InputAdornment>, */
-                          }}
-                        />
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="txFees"
+                            name="txFees"
+                            value={values.txFees}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
+                        </InputGroup>
                       </FormControl>
                     </Tooltip>
                     <br /><br />
@@ -376,22 +364,21 @@ const Basic = () => {
                     >
                       <FormControl>
                         <FormLabel htmlFor="otherFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Other Fees</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
-                          id="otherFees"
-                          name="otherFees"
-                          value={values.otherFees}
-                          onChange={handleChange}
-                          size="small"
-                          type='number'
-                          InputProps={{
-                            inputMode: 'numeric', pattern: '[0-9]*',
-                          /*  endAdornment: <InputAdornment position="end">%</InputAdornment>, */
-                          }}
-                        />
+                        <InputGroup>
+                          <Field
+                            as={Input}
+                            rounded={'md'}
+                            color={'white'}
+                            opacity={0.6}
+                            id="otherFees"
+                            name="otherFees"
+                            value={values.otherFees}
+                            onChange={handleChange}
+                            size="small"
+                            type='number'
+                          />
+                          <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
+                        </InputGroup>
                       </FormControl>
                     </Tooltip>
                   </VStack>
@@ -412,22 +399,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="difficultyIncrement" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Difficulty Increment</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="difficultyIncrement"
-                            name="difficultyIncrement"
-                            value={values.difficultyIncrement}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">%/year</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="difficultyIncrement"
+                              name="difficultyIncrement"
+                              value={values.difficultyIncrement}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -441,22 +427,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="priceIncrement" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Price Increment</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="priceIncrement"
-                            name="priceIncrement"
-                            value={values.priceIncrement}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">%/year</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="priceIncrement"
+                              name="priceIncrement"
+                              value={values.priceIncrement}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -470,22 +455,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="capex" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Capital Expenditure</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="capex"
-                            name="capex"
-                            value={values.capex}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">sats</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="capex"
+                              name="capex"
+                              value={values.capex}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -499,22 +483,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="opex" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Monthly OpEx</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="opex"
-                            name="opex"
-                            value={values.opex}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">USD</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="opex"
+                              name="opex"
+                              value={values.opex}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -528,22 +511,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="hwValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Hardware Value</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="hwValue"
-                            name="hwValue"
-                            value={values.hwValue}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">sats</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="hwValue"
+                              name="hwValue"
+                              value={values.hwValue}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -557,22 +539,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="hwDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Change in hardware value</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="hwDepreciation"
-                            name="hwDepreciation"
-                            value={values.hwDepreciation}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">%/year</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="hwDepreciation"
+                              name="hwDepreciation"
+                              value={values.hwDepreciation}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -586,22 +567,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="infraValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Infrastructure Value</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="infraValue"
-                            name="infraValue"
-                            value={values.infraValue}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">sats</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="infraValue"
+                              name="infraValue"
+                              value={values.infraValue}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -615,22 +595,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="infraDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Change in Infrastructure Value</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="infraDepreciation"
-                            name="infraDepreciation"
-                            value={values.infraDepreciation}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">%/year</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="infraDepreciation"
+                              name="infraDepreciation"
+                              value={values.infraDepreciation}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                       <br /><br />
@@ -645,22 +624,21 @@ const Basic = () => {
                       >
                         <FormControl>
                           <FormLabel htmlFor="discountRate" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Discount Rate</FormLabel>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
-                            id="discountRate"
-                            name="discountRate"
-                            value={values.discountRate}
-                            onChange={handleChange}
-                            size="small"
-                            type='number'
-                            InputProps={{
-                              inputMode: 'numeric', pattern: '[0-9]*',
-                              /* endAdornment: <InputAdornment position="end">%/year</InputAdornment>, */
-                            }}
-                          />
+                          <InputGroup>
+                            <Field
+                              as={Input}
+                              rounded={'md'}
+                              color={'white'}
+                              opacity={0.6}
+                              id="discountRate"
+                              name="discountRate"
+                              value={values.discountRate}
+                              onChange={handleChange}
+                              size="small"
+                              type='number'
+                            />
+                            <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                          </InputGroup>
                         </FormControl>
                       </Tooltip>
                     </VStack>
