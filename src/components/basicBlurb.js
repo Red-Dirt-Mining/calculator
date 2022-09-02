@@ -1,13 +1,13 @@
-import { Typography } from "@mui/material"
+import { Heading, Text } from "@chakra-ui/react"
 
 export const BasicBlurb = () => {
   return (
     <div>
-      <Typography variant="h4" component="h1" color="text.primary" sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>THE OPEN SOURCE MINING CALCULATOR</Typography>
+      <Heading as={'h1'} size={'xl'} textAlign='center' color="white" sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>THE OPEN SOURCE MINING CALCULATOR</Heading>
       <br />
-      <Typography variant="body1" component="p" color="text.primary" sx={{ fontFamily: "Montserrat", fontWeight: 500 }}>
+      <Text textAlign='center' color="white" sx={{ fontFamily: "Montserrat", fontWeight: 500 }}>
         Welcome to the Red Dirt Mining sats-denominated mining calculator.
-      </Typography>
+      </Text>
       <br />
     </div>
   )
