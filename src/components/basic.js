@@ -4,7 +4,7 @@ import { Flex, Tooltip, Input, Heading, Text, Button, FormControl, FormLabel, Bo
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
-// import { BasicStats } from './basicStats'
+import { BasicStats } from './basicStats'
 import { getBlockHeight, getHashrate, getDifficultyAdjustment } from "../services/blockchain"
 import initialValues from "../helpers/initialValues"
 const { createDataSet, calculateHalvingProgress/* , convertToTerra */ } = require("../services/crunchNumbers")
@@ -93,12 +93,12 @@ const Basic = () => {
                 direction={'row'}
                 align={'center'}
                 justify={'center'}
+                color={'white'}
                 >
-                <Box flex={1} p={4} color={'white'}>
+                <Box flex={1} p={4}>
                   <Heading size='sm' textAlign={'center'} as="h2" color={'white'} sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
-                  <br />
                   <div className="form-group">
-                    <VStack spacing={1} align="flex-start">
+                    <VStack spacing={1} >
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -119,7 +119,7 @@ const Basic = () => {
                             name="months"
                             value={values.months}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement
@@ -132,7 +132,6 @@ const Basic = () => {
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -153,14 +152,13 @@ const Basic = () => {
                             name="initialPrice"
                             value={values.initialPrice}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -180,12 +178,11 @@ const Basic = () => {
                           name="networkDifficulty"
                           value={values.networkDifficulty}
                           onChange={handleChange}
-                          size="small"
+                          size={'sm'}
                           type='number'
                         />
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -206,14 +203,13 @@ const Basic = () => {
                             name="hashrate"
                             value={values.hashrate}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'TH/s'} />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -234,14 +230,13 @@ const Basic = () => {
                             name="powerConsumption"
                             value={values.powerConsumption}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'W'} />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -262,14 +257,13 @@ const Basic = () => {
                             name="powerCostPerKwh"
                             value={values.powerCostPerKwh}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -290,14 +284,13 @@ const Basic = () => {
                             name="blockSubsidy"
                             value={values.blockSubsidy}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -318,14 +311,13 @@ const Basic = () => {
                             name="poolFee"
                             value={values.poolFee}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -346,14 +338,13 @@ const Basic = () => {
                             name="txFees"
                             value={values.txFees}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
                         </InputGroup>
                       </FormControl>
                     </Tooltip>
-                    <br /><br />
                     <Tooltip
                       label={
                         <React.Fragment>
@@ -374,7 +365,7 @@ const Basic = () => {
                             name="otherFees"
                             value={values.otherFees}
                             onChange={handleChange}
-                            size="small"
+                            size={'sm'}
                             type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
@@ -384,11 +375,10 @@ const Basic = () => {
                   </VStack>
                   </div>
                 </Box>
-                <Box flex={1} p={4} color={'white'}>
-                <Heading size='sm' textAlign={'center'} as="h2" color={'white'} sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
-                  <br />
+                <Box flex={1} p={4}>
+                <Heading size='sm' textAlign={'center'} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
                   <div className="form-group">
-                    <VStack spacing={1} align="flex-start">
+                    <VStack spacing={1}>
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -409,14 +399,13 @@ const Basic = () => {
                               name="difficultyIncrement"
                               value={values.difficultyIncrement}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -437,14 +426,13 @@ const Basic = () => {
                               name="priceIncrement"
                               value={values.priceIncrement}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -465,14 +453,13 @@ const Basic = () => {
                               name="capex"
                               value={values.capex}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -493,14 +480,13 @@ const Basic = () => {
                               name="opex"
                               value={values.opex}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -521,14 +507,13 @@ const Basic = () => {
                               name="hwValue"
                               value={values.hwValue}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -549,14 +534,13 @@ const Basic = () => {
                               name="hwDepreciation"
                               value={values.hwDepreciation}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -577,14 +561,13 @@ const Basic = () => {
                               name="infraValue"
                               value={values.infraValue}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -605,15 +588,13 @@ const Basic = () => {
                               name="infraDepreciation"
                               value={values.infraDepreciation}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
-                      <br /><br />
-                    
                       <Tooltip
                         label={
                           <React.Fragment>
@@ -634,26 +615,25 @@ const Basic = () => {
                               name="discountRate"
                               value={values.discountRate}
                               onChange={handleChange}
-                              size="small"
+                              size={'sm'}
                               type='number'
+                              mb={6}
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
                       </Tooltip>
+                      <Button type="submit" size={'sm'} width={'100%'} variant={'solid'} backgroundColor={'#638269'} border={'1px'} borderColor={'white'} _hover={{bg: '#FAF4D4', color: '#638269'}}>
+                        Update
+                      </Button>
                     </VStack>
                   </div>
-                  <br />
-
-                  <Button type="submit" width={'100%'} variant={'solid'} backgroundColor={'#638269'} border={'1px'} borderColor={'white'} _hover={{bg: '#FAF4D4', color: '#638269'}}>
-                    Update
-                  </Button>
                 </Box>
-                <Box flex={4} p={2}>
+                <Box flex={4} p={2} maxW={['-moz-fit-content', '-webkit-fit-content']}>
                   <BasicGraph data={data.timeSeriesData} />
-                  {/* <BasicStats data={data.otherData} /> */}
-                  </Box>
-                  </Flex>
+                  <BasicStats data={data.otherData} />
+                </Box>
+              </Flex>
             </Form>
         )}
       </Formik>
