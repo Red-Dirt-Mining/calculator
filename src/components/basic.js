@@ -26,6 +26,7 @@ const { createDataSet, calculateHalvingProgress/* , convertToTerra */ } = requir
 // TODO: Halving adjustment – Nonce to check what I mean here
 // TODO: Toggle graph options – RDM Outlaw https://recharts.org/en-US/examples/LegendEffectOpacity 
 // TODO: Populate initial difficulty from API – Nonce
+// TODO: Sensible input validation limits – Nonce
 
 // V1 COSMETIC
 // TODO: Pull out data to the side to income statement instead of tooltip – Nonce
@@ -67,7 +68,7 @@ const Basic = () => {
     return () => { }
   }, [height])
 
-  initialValues.networkDifficulty = currentDifficulty.toFixed(0) // convertToTerra(currentDifficulty)
+  initialValues.networkDifficulty = Math.round(currentDifficulty) // convertToTerra(currentDifficulty)
 
   return (
     <Box

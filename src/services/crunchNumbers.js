@@ -18,11 +18,10 @@ const calculateHalvingProgress = (blockHeight) => {
 }
 
 const convertToTerra = (value) => {
-  return (value / Math.pow(10, 12)).toFixed(2)
+  return Math.round( (value / Math.pow(10, 12)) * 1e2 ) / 1e2
 }
 
 const createDataSet = (values = initialValues) => {
-  console.log({ values })
   const annualDifficultyIncrease = values.networkDifficulty * values.difficultyIncrement / 100 // TODO: calculate per epoch
   const difficultyIncrementPerEpoch = 0
   const annualPriceIncrease = values.priceIncrement * values.initialPrice / 100
@@ -133,7 +132,7 @@ const createDataSet = (values = initialValues) => {
     timeSeriesData,
     otherData,
   }
-  console.log({ data })
+
   return data
 }
 
