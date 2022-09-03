@@ -1,6 +1,27 @@
 import React from "react"
+import { Box, Center, SimpleGrid } from "@chakra-ui/react"
 
-import { Card, CardContent, Typography, Grid } from "@mui/material"
+const StatsCard = ({ title, stat }) => {
+  return (
+    <Box maxW={'xs'} borderRadius={6} overflow='hidden' backgroundColor={'black'} color={'white'} textAlign={'center'} boxShadow={'dark-lg'} sx={{boxShadow: '4 4 10px 0 rgba(0,0,0,0.5)'}}>
+      <Box p='3'>
+        <Box
+          mt='1'
+          fontWeight='semibold'
+          as='h4'
+          lineHeight='tight'
+          noOfLines={1}
+          sx={{ fontFamily: "Montserrat", fontWeight: 500, fontSize: 14, lineHeight: '150%' }}
+        >
+          {title}
+        </Box>
+        <Box sx={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: 24, lineHeight: '150%' }}>
+          {stat}
+        </Box>
+      </Box>
+    </Box>
+  )
+}
 
 export const BasicStats = ({ data }) => {
   
@@ -9,79 +30,15 @@ export const BasicStats = ({ data }) => {
   }
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Avg. Cost of Production
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.costOfProduction)} USD
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Electricity Break Even
-            </Typography>
-            <Typography variant="h5" component="div">
-              {data.breakevenElectricity} USD/kWh
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              CAPEX Break Even
-            </Typography>
-            <Typography variant="h5" component="div">
-              {data.breakevenMonth} Months
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              End Profit/Loss
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.endPL)} sats
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Total BTC Mined
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.totalMined)} sats
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Performance
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.satsPerTh)} sats/TH
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    <Center w={'100%'} h={'100%'} p={4}>
+    <SimpleGrid columns={3} spacing={5} maxW={'3xl'}>
+      <StatsCard title={"Avg. Cost of Production"} stat={`${addCommas(data.costOfProduction)} USD`} />
+      <StatsCard title={"Electricity Break Even"} stat={`${data.breakevenElectricity} USD/kWh`} />
+      <StatsCard title={"CAPEX Break Even"} stat={`${data.breakevenMonth} Months`} />
+      <StatsCard title={"End Profit/Loss"} stat={`${addCommas(data.endPL)} sats`} />
+      <StatsCard title={"Total BTC Mined"} stat={`${addCommas(data.totalMined)} sats`} />
+      <StatsCard title={"Performance"} stat={`${addCommas(data.satsPerTh)} sats/TH`} />
+    </SimpleGrid>
+    </Center>
   )
 }
