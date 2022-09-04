@@ -1,43 +1,56 @@
 import React from "react"
-import { Box, Center, SimpleGrid } from "@chakra-ui/react"
+import { Box, Center, SimpleGrid, Tooltip } from "@chakra-ui/react"
+import { convertUnits } from '../services/crunchNumbers'
 
-const StatsCard = ({ title, stat }) => {
+const addCommas = (n) => {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+const StatsCard = ({ title, stat, leftUnit, rightUnit }) => {
   return (
-    <Box maxW={'xs'} borderRadius={6} overflow='hidden' backgroundColor={'black'} color={'white'} textAlign={'center'} boxShadow={'dark-lg'} sx={{boxShadow: '4 4 10px 0 rgba(0,0,0,0.5)'}}>
-      <Box p='3'>
-        <Box
-          mt='1'
-          fontWeight='semibold'
-          as='h4'
-          lineHeight='tight'
-          noOfLines={1}
-          sx={{ fontFamily: "Montserrat", fontWeight: 500, fontSize: 14, lineHeight: '150%' }}
-        >
-          {title}
-        </Box>
-        <Box sx={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: 24, lineHeight: '150%' }}>
-          {stat}
+    <Tooltip
+      width={208}
+      bg={'#181919'}
+      color={'white'}
+      borderRadius={'lg'}
+      borderColor={'white'}
+      borderWidth={1}
+      opacity={0.8}
+      textAlign={'center'}
+      label={`${leftUnit ?? ''}${addCommas(stat)}${rightUnit ?? ''}`}
+    >
+      <Box maxW={'xs'} borderRadius={6} overflow='hidden' backgroundColor={'black'} color={'white'} textAlign={'center'} boxShadow={'dark-lg'} sx={{boxShadow: '4 4 10px 0 rgba(0,0,0,0.5)'}}>
+        <Box p='3'>
+          <Box
+            mt='1'
+            fontWeight='semibold'
+            as='h4'
+            lineHeight='tight'
+            noOfLines={1}
+            sx={{ fontFamily: "Montserrat", fontWeight: 500, fontSize: 14, lineHeight: '150%' }}
+          >
+            {title}
+          </Box>
+          <Box sx={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: 24, lineHeight: '150%' }}>
+            {leftUnit}{convertUnits(stat)}{rightUnit}
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Tooltip>
   )
 }
 
 export const BasicStats = ({ data }) => {
-  
-  const addCommas = (n) => {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-  }
 
   return (
     <Center w={'100%'} h={'100%'} p={4}>
     <SimpleGrid columns={3} spacing={5} maxW={'3xl'}>
-      <StatsCard title={"Avg. Cost of Production"} stat={`${addCommas(data.costOfProduction)} USD`} />
-      <StatsCard title={"Electricity Break Even"} stat={`${data.breakevenElectricity} USD/kWh`} />
-      <StatsCard title={"CAPEX Break Even"} stat={`${data.breakevenMonth} Months`} />
-      <StatsCard title={"End Profit/Loss"} stat={`${addCommas(data.endPL)} sats`} />
-      <StatsCard title={"Total BTC Mined"} stat={`${addCommas(data.totalMined)} sats`} />
-      <StatsCard title={"Performance"} stat={`${addCommas(data.satsPerTh)} sats/TH`} />
+      <StatsCard title={"Avg. Cost of Production"} stat={data.costOfProduction} leftUnit={'$'} />
+      <StatsCard title={"Electricity Break Even"} stat={data.breakevenElectricity} leftUnit={'$'} rightUnit={'/kWh'} />
+      <StatsCard title={"CAPEX Break Even"} stat={data.breakevenMonth} rightUnit={data.breakevenMonth === 1 ? ' month' : ' months'} />
+      <StatsCard title={"End Profit/Loss"} stat={data.endPL} rightUnit={' sats'} />
+      <StatsCard title={"Total BTC Mined"} stat={data.totalMined} rightUnit={' sats'} />
+      <StatsCard title={"Performance"} stat={data.satsPerTh} rightUnit={' sats/TH'} />
     </SimpleGrid>
     </Center>
   )

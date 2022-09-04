@@ -21,6 +21,22 @@ const convertToTerra = (value) => {
   return Math.round( (value / Math.pow(10, 12)) * 1e2 ) / 1e2
 }
 
+const convertUnits = (value) => {
+  if (value >= 1000000000000) {
+    return `${(value / 1000000000000).toFixed(0)}T`
+  }
+  if (value >= 1000000000) {
+    return `${(value / 1000000000).toFixed(0)}B`
+  }
+  if (value >= 1000000) {
+    return `${(value / 1000000).toFixed(0)}M`
+  }
+  if (value >= 1000) {
+    return `${(value / 1000).toFixed(0)}K`
+  }
+  return value
+}
+
 const createDataSet = (values = initialValues) => {
   const annualDifficultyIncrease = values.networkDifficulty * values.difficultyIncrement / 100 // TODO: calculate per epoch
   const difficultyIncrementPerEpoch = 0
@@ -140,5 +156,6 @@ module.exports = {
   calculateSubsidy,
   calculateHalvingProgress,
   convertToTerra,
+  convertUnits,
   createDataSet,
 }

@@ -479,7 +479,9 @@ const Basic = () => {
         >
         <FormComponent setData={setData} />
         <Box flex={4} p={2} maxW={'740px'}>
-          <BasicGraph data={data.timeSeriesData} />
+          <div style={{ width: 740, height: 400 }}>
+            <BasicGraph data={data.timeSeriesData} />
+          </div>
           <BasicStats data={data.otherData} />
         </Box>
       </Flex>
