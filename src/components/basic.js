@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { Flex, Tooltip, Input, Heading, Text, Button, FormControl, FormLabel, Box, VStack, InputRightElement, InputGroup } from "@chakra-ui/react"
-// import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
@@ -8,18 +7,6 @@ import { BasicStats } from './basicStats'
 import { getBlockHeight, getHashrate, getDifficultyAdjustment } from "../services/blockchain"
 import initialValues from "../helpers/initialValues"
 const { createDataSet, calculateHalvingProgress/* , convertToTerra */ } = require("../services/crunchNumbers")
-
-/* const HtmlTooltip = styled(({ className, ...props }) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-    maxWidth: 220,
-    fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
-  },
-})) */
 
 // V1 MUST-HAVES
 // FIXME: Block based time period – Nonce
@@ -45,6 +32,48 @@ const { createDataSet, calculateHalvingProgress/* , convertToTerra */ } = requir
 
 
 let data = createDataSet(initialValues)
+
+const StyledTooltip = ({ children, title, blurb, ...props }) => {
+  return (
+    <Tooltip
+      width={208}
+      bg={'#181919'}
+      color={'white'}
+      borderRadius={'lg'}
+      borderColor={'white'}
+      borderWidth={1}
+      opacity={0.8}
+      placement={'bottom-start'}
+      label={
+        <React.Fragment>
+          <Text sx={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: '14px', lineHeight: '21px' }}>{title}</Text>
+          <Text sx={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: '12px', lineHeight: '18px' }}>{blurb}</Text>
+        </React.Fragment>
+      }
+      {...props}
+    >
+      {children}
+    </Tooltip>
+  )
+}
+
+const StyledField = ({ children, ...props }) => {
+  return (
+    <Field
+      width={208}
+      as={Input}
+      rounded={'md'}
+      bg={'#181919'}
+      color={'white'}
+      opacity={0.6}
+      size={'sm'}
+      type='number'
+      {...props}
+    >
+      {children}
+    </Field>
+  )
+}
 
 const Basic = () => {
   const [height, setHeight] = useState(0)
@@ -73,7 +102,7 @@ const Basic = () => {
   return (
     <Box
       w={'full'}
-      h={'100vh'}
+      h={'full'}
       bgGradient="linear(180deg, #181919 18.75%, #7D443C 100%)"
       >
       <BasicBlurb />
@@ -82,7 +111,6 @@ const Basic = () => {
         onSubmit={(values, { setSubmitting }) => {
           const dataSet = createDataSet(values)
           data = dataSet
-          console.log({ dataSet })
           setSubmitting(false)
         }}
       >
@@ -97,31 +125,21 @@ const Basic = () => {
                 color={'white'}
                 >
                 <Box flex={1} p={4}>
-                  <Heading size='sm' textAlign={'center'} as="h2" color={'white'} sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
+                  <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" color={'white'} sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
                   <div className="form-group">
-                    <VStack spacing={1} >
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color={'white'}>Time Period</Text>
-                          <Text color={'white'}>The time period you want to calculate profitability for.</Text>
-                        </React.Fragment>
-                      }
+                    <VStack spacing={1} w={208} >
+                    <StyledTooltip
+                      title='Time Period'
+                      blurb='The time period you want to calculate profitability for.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="months" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Time Period</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="months"
                             name="months"
                             value={values.months}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement
                             children="months"
@@ -132,498 +150,318 @@ const Basic = () => {
                           />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color={'white'}>Initial Price</Text>
-                          {"Price of Bitcoin in USD at the beginning of the time period."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Initial Price'
+                      blurb='Price of Bitcoin in USD at the beginning of the time period.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="initialPrice" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Price</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="initialPrice"
                             name="initialPrice"
                             value={values.initialPrice}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color={'white'}>Network Difficulty</Text>
-                          {"Difficulty to mine the next block."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Network Difficulty'
+                      blurb='Difficulty to mine the next block.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="networkDifficulty" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Network Difficulty</FormLabel>
-                        <Field
-                          as={Input}
-                          rounded={'md'}
-                          color={'white'}
-                          opacity={0.6}
+                        <StyledField
                           id="networkDifficulty"
                           name="networkDifficulty"
                           value={values.networkDifficulty}
                           onChange={handleChange}
-                          size={'sm'}
-                          type='number'
                         />
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Hashrate</Text>
-                          {"Size of mining operation in TH/s."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Hashrate'
+                      blurb='Size of mining operation in TH/s.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="hashrate" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Hashrate</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="hashrate"
                             name="hashrate"
                             value={values.hashrate}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'TH/s'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Power Consumption</Text>
-                          {"Total amount of power consumed in a given time period in Watts."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Power Consumption'
+                      blurb='Total amount of power consumed in a given time period in Watts.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="powerConsumption" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Power Consumption</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="powerConsumption"
                             name="powerConsumption"
                             value={values.powerConsumption}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'W'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Power Rate</Text>
-                          {"Power price denominated in USD per Kwh."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Power Rate'
+                      blurb='Power price denominated in USD per kWh.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="powerCostPerKwh" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Power Rate</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="powerCostPerKwh"
                             name="powerCostPerKwh"
                             value={values.powerCostPerKwh}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Block Subsidy</Text>
-                          {"Amount of new Bitcoin minted per block."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Block Subsidy'
+                      blurb='Amount of new Bitcoin minted per block.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="blockSubsidy" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Block Subsidy</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="blockSubsidy"
                             name="blockSubsidy"
                             value={values.blockSubsidy}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Pool Fee</Text>
-                          {"Percentage fees paid to a mining pool."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Pool Fee'
+                      blurb='Percentage fees paid to a mining pool.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="poolFee" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Pool Fee</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="poolFee"
                             name="poolFee"
                             value={values.poolFee}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Average Transaction Fees</Text>
-                          {"Average value of transaction fees per block mined."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Average Transaction Fees'
+                      blurb='Average value of transaction fees per block mined.'
                     >
                       <FormControl>
-                        <FormLabel htmlFor="txFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Average Transaction Fees</FormLabel>
+                        <FormLabel htmlFor="txFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Avg. Transaction Fees</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="txFees"
                             name="txFees"
                             value={values.txFees}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
-                    <Tooltip
-                      label={
-                        <React.Fragment>
-                          <Text color="inherit">Other Fees</Text>
-                          {"Additional operational expenses such as dev fees for firmware, management and hosting fees, etc."}
-                        </React.Fragment>
-                      }
+                    </StyledTooltip>
+                    <StyledTooltip
+                      title='Other Fees'
+                      blurb='Additional operational expenses such as dev fees for firmware, management and hosting fees, etc.'
                     >
                       <FormControl>
                         <FormLabel htmlFor="otherFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Other Fees</FormLabel>
                         <InputGroup>
-                          <Field
-                            as={Input}
-                            rounded={'md'}
-                            color={'white'}
-                            opacity={0.6}
+                          <StyledField
                             id="otherFees"
                             name="otherFees"
                             value={values.otherFees}
                             onChange={handleChange}
-                            size={'sm'}
-                            type='number'
                           />
                           <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
                         </InputGroup>
                       </FormControl>
-                    </Tooltip>
+                    </StyledTooltip>
                   </VStack>
                   </div>
                 </Box>
                 <Box flex={1} p={4}>
-                <Heading size='sm' textAlign={'center'} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
+                <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
                   <div className="form-group">
-                    <VStack spacing={1}>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Difficulty Increment</Text>
-                            {"Percentage change in difficulty per year."}
-                          </React.Fragment>
-                        }
+                    <VStack spacing={1} w={208}>
+                      <StyledTooltip
+                        title='Difficulty Increment'
+                        blurb='Percentage change in difficulty per year.'
                       >
                         <FormControl>
                           <FormLabel htmlFor="difficultyIncrement" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Difficulty Increment</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="difficultyIncrement"
                               name="difficultyIncrement"
                               value={values.difficultyIncrement}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Price Increment</Text>
-                            {"Percentage change in price per year."}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Price Increment'
+                        blurb='Percentage change in price per year.'
                       >
                         <FormControl>
                           <FormLabel htmlFor="priceIncrement" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Price Increment</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="priceIncrement"
                               name="priceIncrement"
                               value={values.priceIncrement}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Capital Expenditure</Text>
-                            {"Initial capital expenditure denominated in sats."}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Capital Expenditure'
+                        blurb='Initial capital expenditure denominated in sats.'
                       >
                         <FormControl>
                           <FormLabel htmlFor="capex" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Capital Expenditure</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="capex"
                               name="capex"
                               value={values.capex}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Monthly Operating Expenses</Text>
-                            {"Monthly operating expenses denominated in USD."}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Monthly Operating Expenses'
+                        blurb='Monthly operating expenses denominated in USD.'
                       >
                         <FormControl>
                           <FormLabel htmlFor="opex" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Monthly OpEx</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="opex"
                               name="opex"
                               value={values.opex}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="white">Initial Hardware Value</Text>
-                            {"Value of hardware at time of purchase denominated in sats."}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Initial Hardware Value'
+                        blurb='Value of hardware at time of purchase denominated in sats.'
                       >
                         <FormControl>
-                          <FormLabel htmlFor="hwValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Hardware Value</FormLabel>
+                          <FormLabel htmlFor="hwValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Hardware Value</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="hwValue"
                               name="hwValue"
                               value={values.hwValue}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Change in Hardware Value</Text>
-                            {"Percentage appreciation or depreciation per year in hardware."}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Change in Hardware Value'
+                        blurb='Percentage appreciation or depreciation per year in hardware.'
                       >
                         <FormControl>
-                          <FormLabel htmlFor="hwDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Change in hardware value</FormLabel>
+                          <FormLabel htmlFor="hwDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Hardware Depr.</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="hwDepreciation"
                               name="hwDepreciation"
                               value={values.hwDepreciation}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Initial Infrastructure Value</Text>
-                            {"Value of infrastructure at time of purchase denominated in sats."}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Initial Infrastructure Value'
+                        blurb='Value of infrastructure at time of purchase denominated in sats.'
                       >
                         <FormControl>
-                          <FormLabel htmlFor="infraValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Infrastructure Value</FormLabel>
+                          <FormLabel htmlFor="infraValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Infrastructure Value</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="infraValue"
                               name="infraValue"
                               value={values.infraValue}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Change in Infrastructure Value</Text>
-                            {"Percentage appreciation or depreciation per year in infrastructure"}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Change in Infrastructure Value'
+                        blurb='Percentage appreciation or depreciation per year in infrastructure.'
                       >
                         <FormControl>
-                          <FormLabel htmlFor="infraDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Change in Infrastructure Value</FormLabel>
+                          <FormLabel htmlFor="infraDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Infrastructure Depr.</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="infraDepreciation"
                               name="infraDepreciation"
                               value={values.infraDepreciation}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
-                      <Tooltip
-                        label={
-                          <React.Fragment>
-                            <Text color="inherit">Discount Rate</Text>
-                            {"Interest rate used to discount future cashflows to present value."}
-                          </React.Fragment>
-                        }
+                      </StyledTooltip>
+                      <StyledTooltip
+                        title='Discount Rate'
+                        blurb='Interest rate used to discount future cashflows to present value.'
                       >
                         <FormControl>
                           <FormLabel htmlFor="discountRate" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Discount Rate</FormLabel>
                           <InputGroup>
-                            <Field
-                              as={Input}
-                              rounded={'md'}
-                              color={'white'}
-                              opacity={0.6}
+                            <StyledField
                               id="discountRate"
                               name="discountRate"
                               value={values.discountRate}
                               onChange={handleChange}
-                              size={'sm'}
-                              type='number'
                               mb={6}
                             />
                             <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
                           </InputGroup>
                         </FormControl>
-                      </Tooltip>
+                      </StyledTooltip>
                       <Button type="submit" size={'sm'} width={'100%'} variant={'solid'} backgroundColor={'#638269'} border={'1px'} borderColor={'white'} _hover={{bg: '#FAF4D4', color: '#638269'}}>
                         Update
                       </Button>
