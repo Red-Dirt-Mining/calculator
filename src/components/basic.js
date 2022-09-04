@@ -126,7 +126,6 @@ const Basic = () => {
                 >
                 <Box flex={1} p={4}>
                   <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" color={'white'} sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
-                  <div className="form-group">
                     <VStack spacing={1} w={208} >
                     <StyledTooltip
                       title='Time Period'
@@ -302,11 +301,9 @@ const Basic = () => {
                       </FormControl>
                     </StyledTooltip>
                   </VStack>
-                  </div>
                 </Box>
                 <Box flex={1} p={4}>
                 <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
-                  <div className="form-group">
                     <VStack spacing={1} w={208}>
                       <StyledTooltip
                         title='Difficulty Increment'
@@ -466,7 +463,6 @@ const Basic = () => {
                         Update
                       </Button>
                     </VStack>
-                  </div>
                 </Box>
                 <Box flex={4} p={2} maxW={['-moz-fit-content', '-webkit-fit-content']}>
                   <BasicGraph data={data.timeSeriesData} />
