@@ -1,5 +1,6 @@
 import React from 'react'
 import { convertUnits } from '../services/crunchNumbers'
+import { Text, HStack, Box } from '@chakra-ui/react'
 import {
   ResponsiveContainer,
   Area,
@@ -22,6 +23,32 @@ const graphColors = {
   breakeven: '#7D443C',
   netMonthlyProfit: '#638269',
   monthlyRevenue: '#FAF4D4',
+}
+
+const renderCusomizedLegend = (props) => {
+  const { payload } = props
+  return (
+    <div className="customized-legend">
+      <Box
+        backgroundColor={'#181919'}
+        border={'1px solid white'}
+        borderRadius={'lg'}
+      >
+        <HStack>
+        {
+          payload.map((entry) => {
+            const { dataKey, value, color } = entry
+            return (
+                <span className="legend-item" key={dataKey}>
+                  <Text color={color} textAlign={'center'}>{value}</Text>
+                </span>
+            )
+          })
+        }
+        </HStack>
+      </Box>
+    </div>
+  )
 }
 
 export const BasicGraph = ({ data }) => {
@@ -122,7 +149,7 @@ export const BasicGraph = ({ data }) => {
               strokeWidth={2}
               fill="url(#colorUv)"
           />
-          <Legend onClick={selectSeries} />
+          <Legend onClick={selectSeries} content={renderCusomizedLegend} />
         </ComposedChart>
       </ResponsiveContainer>
   )
