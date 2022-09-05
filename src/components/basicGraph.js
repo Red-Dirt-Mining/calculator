@@ -25,7 +25,7 @@ const graphColors = {
   monthlyRevenue: '#FAF4D4',
 }
 
-const renderCusomizedLegend = (props) => {
+const renderCusomLegend = (props) => {
   const { payload } = props
   return (
     <div className="customized-legend">
@@ -51,7 +51,19 @@ const renderCusomizedLegend = (props) => {
   )
 }
 
-export const BasicGraph = ({ data }) => {
+const CustomTooltip = (data) => {
+  const { active, payload, label, setActive, setPayload, setLabel } = data
+  setActive(active)
+  if (active && payload && payload.length) {
+    setPayload(payload)
+    setLabel(label)
+    return null
+  }
+
+  return null;
+};
+
+export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
   const breakeven = data[0].breakeven
 
   const selectSeries = (event) => {
@@ -95,15 +107,8 @@ export const BasicGraph = ({ data }) => {
           <YAxis yAxisId="right" orientation="right" tick={null} />
           <CartesianGrid stroke="#D9D9D9B2" fill='#181919' />
           <Tooltip
-              cursor={{ strokeDasharray: '3 3' }}
-              formatter={(value) =>
-                  new Intl.NumberFormat(undefined, {
-                  }).format(value)
-              }
-              labelFormatter={(label) =>
-                new Intl.NumberFormat(undefined, {
-                }).format(label)
-              }
+            content={<CustomTooltip setActive={setActive} setPayload={setPayload} setLabel={setLabel} />}
+            cursor={{ strokeDasharray: '3 3' }}
           />
           <defs>
               <linearGradient
@@ -149,7 +154,7 @@ export const BasicGraph = ({ data }) => {
               strokeWidth={2}
               fill="url(#colorUv)"
           />
-          <Legend onClick={selectSeries} content={renderCusomizedLegend} />
+          <Legend onClick={selectSeries} content={renderCusomLegend} />
         </ComposedChart>
       </ResponsiveContainer>
   )

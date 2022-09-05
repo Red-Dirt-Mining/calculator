@@ -13,7 +13,7 @@ import {
   InputGroup,
   HStack,
   Container,
-  Stack
+  Stack,
 } from "@chakra-ui/react"
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
@@ -21,7 +21,7 @@ import { BasicGraph } from './basicGraph'
 import { BasicStats } from './basicStats'
 import { getHashrate, getBlockHeight/* , getDifficultyAdjustment */ } from "../services/blockchain"
 import initialValues from "../helpers/initialValues"
-const { createDataSet/* , calculateHalvingProgress, convertToTerra */ } = require("../services/crunchNumbers")
+const { createDataSet, convertUnits/* , calculateHalvingProgress, convertToTerra */ } = require("../services/crunchNumbers")
 
 // V1 MUST-HAVES
 // FIXME: Block based time period – Nonce
@@ -451,6 +451,85 @@ const FormComponent = ({setData}) => {
   )
 }
 
+const IncomeStatement = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <Box
+        position={'absolute'}
+        zIndex={2}
+        backgroundColor={'#181919'}
+        border={'1px solid white'}
+        borderRadius={'lg'}
+        fontFamily={'Montserrat'}
+        p={2}
+        pt={4}
+      >
+        <Heading textAlign={'center'} size={'sm'} fontWeight={500}>INCOME STATEMENT</Heading>
+        <Text textAlign={'center'} mb={8}>{`Month ${label}`}</Text>
+        <Box
+          backgroundColor={payload[0].color}
+          color={'#181919'}
+          borderRadius={'lg'}
+          p={2}
+          mb={8}
+        >
+          <Text textAlign={'center'}>{`${payload[0].name}: ${convertUnits(payload[0].value)} sats`}</Text>
+        </Box>
+        <Box
+          backgroundColor={payload[1].color}
+          borderRadius={'lg'}
+          p={2}
+          mb={8}
+        >
+          <Text textAlign={'center'}>{`${payload[1].name}: ${convertUnits(payload[1].value)} sats`}</Text>
+        </Box>
+        <Box
+          backgroundColor={payload[2].color}
+          borderRadius={'lg'}
+          p={2}
+          mb={8}
+        >
+          <Text textAlign={'center'}>{`${payload[2].name}: ${convertUnits(payload[2].value)} sats`}</Text>
+        </Box>
+        <Box
+          backgroundColor={payload[3].color}
+          borderRadius={'lg'}
+          p={2}
+          mb={8}
+        >
+          <Text textAlign={'center'}>{`${payload[3].name}: ${convertUnits(payload[3].value)} sats`}</Text>
+        </Box>
+        <Box
+          backgroundColor={payload[4].color}
+          borderRadius={'lg'}
+          p={2}
+          mb={8}
+        >
+          <Text textAlign={'center'}>{`${payload[4].name}: ${convertUnits(payload[4].value)} sats`}</Text>
+        </Box>
+        <Box
+          backgroundColor={payload[5].color}
+          borderRadius={'lg'}
+          p={2}
+          mb={8}
+        >
+          <Text textAlign={'center'}>{`${payload[5].name}: ${convertUnits(payload[5].value)} sats`}</Text>
+        </Box>
+        <Box
+          backgroundColor={payload[6].color}
+          borderRadius={'lg'}
+          p={2}
+          mb={8}
+        >
+          <Text textAlign={'center'}>{`${payload[6].name}: ${convertUnits(payload[6].value)} sats`}</Text>
+        </Box>
+      </Box>
+    );
+  }
+
+  return null;
+};
+
 const Basic = () => {
   const [data, setData] = useState(createDataSet(initialValues))
   const [currentDifficulty, setCurrentDifficulty] = useState(0)
@@ -458,6 +537,10 @@ const Basic = () => {
   // const [difficultyProgress, setDifficultyProgress] = useState(0)
   // const [difficultyBlocks, setDifficultyBlocks] = useState(0)
   // const [halvingProgress, setHalvingProgress] = useState(0)
+
+  const [active, setActive] = useState(false)
+  const [payload, setPayload] = useState([])
+  const [label, setLabel] = useState(null)
 
   const loadData = async () => {
     const hashrate = await getHashrate()
@@ -492,6 +575,7 @@ const Basic = () => {
           direction={{ base: 'column', lg: 'row' }}>
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>
             <FormComponent setData={setData} />
+            <IncomeStatement active={active} payload={payload} label={label} />
           </Stack>
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>
             <Box
@@ -500,7 +584,7 @@ const Basic = () => {
               height={400}
               width={{xl: 740, lg: 658, md: 568, sm: 686, base: 416}}
               overflow={'hidden'}>
-              <BasicGraph data={data.timeSeriesData} />
+              <BasicGraph data={data.timeSeriesData} setActive={setActive} setPayload={setPayload} setLabel={setLabel} />
             </Box>
             <BasicStats data={data.otherData} />
           </Stack>
