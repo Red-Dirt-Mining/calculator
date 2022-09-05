@@ -63,6 +63,28 @@ const CustomTooltip = (data) => {
   return null;
 };
 
+const CustomLabel = (props) => {
+  const { y, width } = props.viewBox
+  return (
+    <g>
+      <rect x={(width / 2)} y={y-25} width="111" height="25" rx="6" fill="#181919"/>
+      <rect x={(width / 2)} y={y-25} width="110" height="24" rx="5.5" fill="#181919" stroke="white" strokeOpacity="0.8"/>
+      <text
+        x={55+(width / 2)}
+        y={y-12}
+        fill='white'
+        fontSize={11}
+        fontFamily='Montserrat'
+        fontWeight={600}
+        textAnchor="middle"
+        dominantBaseline="middle"
+      >
+        CAPEX Breakeven
+      </text>
+    </g>
+  )
+}
+
 export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
   const breakeven = data[0].breakeven
 
@@ -135,9 +157,6 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
           <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke={graphColors.hardware} fill={graphColors.hardware} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="cashflow" name='Cashflow' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="netPosition" name='Net Position' stroke={graphColors.netPosition} fill={graphColors.netPosition} strokeWidth={3} dot={null} />
-          <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeDasharray="4 4">
-            <Label fill={graphColors.breakeven} position='top'>CAPEX breakeven</Label>
-          </ReferenceLine>
           <Area
               type="monotone"
               dataKey="netProfitCumulative"
@@ -154,6 +173,9 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
               strokeWidth={2}
               fill="url(#colorUv)"
           />
+          <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeDasharray="4 4">
+            <Label fill={graphColors.breakeven} position='top' content={CustomLabel}></Label>
+          </ReferenceLine>
           <Legend onClick={selectSeries} content={renderCusomLegend} />
         </ComposedChart>
       </ResponsiveContainer>
