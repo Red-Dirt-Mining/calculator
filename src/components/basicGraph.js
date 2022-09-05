@@ -1,4 +1,5 @@
 import React from 'react'
+import { convertUnits } from '../services/crunchNumbers'
 import {
   ResponsiveContainer,
   Area,
@@ -48,15 +49,11 @@ export const BasicGraph = ({ data }) => {
   }
 
   return (
-    <div style={{ width: 900, height: 600 }}>
-      <ResponsiveContainer>
+      <ResponsiveContainer width="100%" height="100%">
         <ComposedChart
           data={data}
           margin={{
             top: 20,
-            right: 80,
-            bottom: 40,
-            left: 100,
           }}
         >
           <XAxis
@@ -66,9 +63,10 @@ export const BasicGraph = ({ data }) => {
           <YAxis 
             unit=" sats"
             stroke='#FFFFFF'
+            tickFormatter={tick => convertUnits(tick)}
           />
           <YAxis yAxisId="right" orientation="right" tick={null} />
-          <CartesianGrid stroke="#D9D9D9B2" />
+          <CartesianGrid stroke="#D9D9D9B2" fill='#181919' />
           <Tooltip
               cursor={{ strokeDasharray: '3 3' }}
               formatter={(value) =>
@@ -127,6 +125,5 @@ export const BasicGraph = ({ data }) => {
           <Legend onClick={selectSeries} />
         </ComposedChart>
       </ResponsiveContainer>
-    </div>
   )
 }

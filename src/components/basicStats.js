@@ -1,87 +1,65 @@
 import React from "react"
+import { Box, Center, SimpleGrid, Tooltip } from "@chakra-ui/react"
+import { convertUnits } from '../services/crunchNumbers'
 
-import { Card, CardContent, Typography, Grid } from "@mui/material"
+const addCommas = (n) => {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+const StatsCard = ({ title, stat, leftUnit, rightUnit }) => {
+  return (
+    <Tooltip
+      width={208}
+      bg={'#181919'}
+      color={'white'}
+      borderRadius={'lg'}
+      borderColor={'white'}
+      borderWidth={1}
+      opacity={0.8}
+      textAlign={'center'}
+      label={`${leftUnit ?? ''}${addCommas(stat)}${rightUnit ?? ''}`}
+    >
+      <Box
+        maxW={'xs'}
+        borderRadius={6}
+        overflow='hidden'
+        backgroundColor={'black'}
+        color={'white'}
+        textAlign={'center'}
+        boxShadow={'2xl'}
+      >
+        <Box p='3'>
+          <Box
+            mt='1'
+            fontWeight='semibold'
+            as='h4'
+            lineHeight='tight'
+            noOfLines={1}
+            sx={{ fontFamily: "Montserrat", fontWeight: 500, fontSize: 14, lineHeight: '150%' }}
+          >
+            {title}
+          </Box>
+          <Box sx={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: 24, lineHeight: '150%' }}>
+            {leftUnit}{convertUnits(stat)}{rightUnit}
+          </Box>
+        </Box>
+      </Box>
+    </Tooltip>
+  )
+}
 
 export const BasicStats = ({ data }) => {
-  
-  const addCommas = (n) => {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-  }
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Avg. Cost of Production
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.costOfProduction)} USD
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Electricity Break Even
-            </Typography>
-            <Typography variant="h5" component="div">
-              {data.breakevenElectricity} USD/kWh
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              CAPEX Break Even
-            </Typography>
-            <Typography variant="h5" component="div">
-              {data.breakevenMonth} Months
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              End Profit/Loss
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.endPL)} sats
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Total BTC Mined
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.totalMined)} sats
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={4}>
-        <Card>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Performance
-            </Typography>
-            <Typography variant="h5" component="div">
-              {addCommas(data.satsPerTh)} sats/TH
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    <Center w={'100%'} h={'100%'} p={4}>
+    <SimpleGrid columns={3} spacing={5} maxW={'3xl'}>
+      <StatsCard title={"Avg. Cost of Production"} stat={data.costOfProduction} leftUnit={'$'} />
+      <StatsCard title={"Electricity Break Even"} stat={data.breakevenElectricity} leftUnit={'$'} rightUnit={'/kWh'} />
+      <StatsCard title={"CAPEX Break Even"} stat={data.breakevenMonth} rightUnit={data.breakevenMonth === 1 ? ' month' : ' months'} />
+      <StatsCard title={"End Profit/Loss"} stat={data.endPL} rightUnit={' sats'} />
+      <StatsCard title={"Total BTC Mined"} stat={data.totalMined} rightUnit={' sats'} />
+      <StatsCard title={"Performance"} stat={data.satsPerTh} rightUnit={' sats/TH'} />
+    </SimpleGrid>
+    </Center>
   )
 }
