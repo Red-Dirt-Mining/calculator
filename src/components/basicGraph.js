@@ -1,4 +1,5 @@
-import React from 'react'
+
+import React, { useState, useCallback } from 'react';
 import {
   ResponsiveContainer,
   Area,
@@ -13,6 +14,9 @@ import {
   Label,
   Legend,
 } from 'recharts'
+import Basic from './basic.js';
+
+
 
 const graphColors = {
   cashflow: '#B04231',
@@ -23,10 +27,18 @@ const graphColors = {
   monthlyRevenue: '#FAF4D4',
 }
 
+
+
+
+
+
 export const BasicGraph = ({ data }) => {
+
+
   const breakeven = data[0].breakeven
 
   const selectSeries = (event) => {
+
     let updatedLabels = [];
     for (let i = 0; i < this.state.labels.length; i++) {
       let label = this.state.labels[i];
@@ -43,9 +55,44 @@ export const BasicGraph = ({ data }) => {
       }
     }
     this.setState({
-      labels: updatedLabels
+      labels: updatedLabels,
+      opacity: {
+        netPosition: 1,
+        hardware: 1,
+        cashflow: 1,
+        breakeven: 1,
+        netMonthlyProfit: 1,
+        monthlyRevenue: 1,
+      
+      }
     });
   }
+
+
+  const [opacity, setOpacity] = useState({
+    netPosition: 1,
+    hardware: 1,
+    cashflow: 1,
+    breakeven: 1,
+    netMonthlyProfit: 1,
+    monthlyRevenue: 1,
+  });
+
+  const handleMouseEnter = useCallback(
+    (o) => {
+      const { dataKey } = o;
+
+      setOpacity({ ...opacity, [dataKey]: 0.5 });
+    },
+    [opacity, setOpacity]
+  );
+  const handleMouseLeave = useCallback(
+    (o) => {
+      const { dataKey } = o;
+      setOpacity({ ...opacity, [dataKey]: 1 });
+    },
+    [opacity, setOpacity]
+  );
 
   return (
     <div style={{ width: 900, height: 600 }}>
@@ -63,42 +110,42 @@ export const BasicGraph = ({ data }) => {
             dataKey="month"
             tick={null}
           />
-          <YAxis 
+          <YAxis
             unit=" sats"
             stroke='#FFFFFF'
           />
           <YAxis yAxisId="right" orientation="right" tick={null} />
           <CartesianGrid stroke="#D9D9D9B2" />
           <Tooltip
-              cursor={{ strokeDasharray: '3 3' }}
-              formatter={(value) =>
-                  new Intl.NumberFormat(undefined, {
-                  }).format(value)
-              }
-              labelFormatter={(label) =>
-                new Intl.NumberFormat(undefined, {
-                }).format(label)
-              }
+            cursor={{ strokeDasharray: '3 3' }}
+            formatter={(value) =>
+              new Intl.NumberFormat(undefined, {
+              }).format(value)
+            }
+            labelFormatter={(label) =>
+              new Intl.NumberFormat(undefined, {
+              }).format(label)
+            }
           />
           <defs>
-              <linearGradient
-                  id="colorUv"
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-              >
-                  <stop
-                      offset="5%"
-                      stopColor="#8884d8"
-                      stopOpacity={0.8}
-                  />
-                  <stop
-                      offset="95%"
-                      stopColor="#8884d8"
-                      stopOpacity={0}
-                  />
-              </linearGradient>
+            <linearGradient
+              id="colorUv"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop
+                offset="5%"
+                stopColor="#8884d8"
+                stopOpacity={0.8}
+              />
+              <stop
+                offset="95%"
+                stopColor="#8884d8"
+                stopOpacity={0}
+              />
+            </linearGradient>
           </defs>
           <Bar dataKey="monthlyRevenue" name='Net Monthly Revenue' barSize={20} fill={graphColors.monthlyRevenue} yAxisId='right' />
           <Bar dataKey="netMonthlyProfit" name='Net Monthly Profit' barSize={20} fill={graphColors.netMonthlyProfit} yAxisId='right' />
@@ -109,24 +156,29 @@ export const BasicGraph = ({ data }) => {
             <Label fill={graphColors.breakeven} position='top'>CAPEX breakeven</Label>
           </ReferenceLine>
           <Area
-              type="monotone"
-              dataKey="netProfitCumulative"
-              name='Cumulative Net Profit'
-              stroke="#8884d8"
-              strokeWidth={2}
-              fill="url(#colorUv)"
+            type="monotone"
+            dataKey="netProfitCumulative"
+            name='Cumulative Net Profit'
+            stroke="#8884d8"
+            strokeWidth={2}
+            fill="url(#colorUv)"
           />
           <Area
-              type="monotone"
-              dataKey="grossProfitCumulative"
-              name='Cumulative Gross Profit'
-              stroke="#orange"
-              strokeWidth={2}
-              fill="url(#colorUv)"
+            type="monotone"
+            dataKey="grossProfitCumulative"
+            name='Cumulative Gross Profit'
+            stroke="#orange"
+            strokeWidth={2}
+            fill="url(#colorUv)"
           />
-          <Legend onClick={selectSeries} />
+          <Legend onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={selectSeries}/>
         </ComposedChart>
       </ResponsiveContainer>
     </div>
-  )
+
+  );
+
 }
+
+
+
