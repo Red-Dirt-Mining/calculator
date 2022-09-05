@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from "react"
-import { Flex, Tooltip, Input, Heading, Text, Button, FormControl, FormLabel, Box, VStack, InputRightElement, InputGroup, HStack } from "@chakra-ui/react"
+import {
+  Tooltip,
+  Input,
+  Heading,
+  Text,
+  Button,
+  FormControl,
+  FormLabel,
+  Box,
+  VStack,
+  InputRightElement,
+  InputGroup,
+  HStack,
+  Container,
+  Stack
+} from "@chakra-ui/react"
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
@@ -88,7 +103,7 @@ const FormComponent = ({setData}) => {
         <Form>
           <HStack spacing={4} p={2}>
             <Box p={4}>
-              <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" color={'white'} sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
+              <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
                 <VStack spacing={1} w={208} >
                 <StyledTooltip
                   title='Time Period'
@@ -469,22 +484,28 @@ const Basic = () => {
       bgGradient="linear(180deg, #181919 18.75%, #7D443C 100%)"
       >
       <BasicBlurb />
-      <Flex
-        w={'full'}
-        h={'full'}
-        direction={'row'}
-        align={'center'}
-        justify={'center'}
-        color={'white'}
-        >
-        <FormComponent setData={setData} />
-        <Box flex={4} p={2} maxW={'740px'}>
-          <div style={{ width: 740, height: 400 }}>
-            <BasicGraph data={data.timeSeriesData} />
-          </div>
-          <BasicStats data={data.otherData} />
-        </Box>
-      </Flex>
+      <Container maxW={'7xl'} color={'white'} mt={-20}>
+        <Stack
+          align={'center'}
+          spacing={{ base: 8, md: 10 }}
+          py={{ base: 20, md: 28 }}
+          direction={{ base: 'column', lg: 'row' }}>
+          <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+            <FormComponent setData={setData} />
+          </Stack>
+          <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+            <Box
+              p={-4}
+              m={-4}
+              height={400}
+              width={{xl: 740, lg: 658, md: 568, sm: 686, base: 416}}
+              overflow={'hidden'}>
+              <BasicGraph data={data.timeSeriesData} />
+            </Box>
+            <BasicStats data={data.otherData} />
+          </Stack>
+        </Stack>
+      </Container>
     </Box>
   )
 }

@@ -19,7 +19,15 @@ const StatsCard = ({ title, stat, leftUnit, rightUnit }) => {
       textAlign={'center'}
       label={`${leftUnit ?? ''}${addCommas(stat)}${rightUnit ?? ''}`}
     >
-      <Box maxW={'xs'} borderRadius={6} overflow='hidden' backgroundColor={'black'} color={'white'} textAlign={'center'} boxShadow={'dark-lg'} sx={{boxShadow: '4 4 10px 0 rgba(0,0,0,0.5)'}}>
+      <Box
+        maxW={'xs'}
+        borderRadius={6}
+        overflow='hidden'
+        backgroundColor={'black'}
+        color={'white'}
+        textAlign={'center'}
+        boxShadow={'2xl'}
+      >
         <Box p='3'>
           <Box
             mt='1'

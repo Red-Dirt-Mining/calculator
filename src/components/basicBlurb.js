@@ -7,7 +7,9 @@ export const BasicBlurb = () => {
         as={'h1'}
         textAlign='center'
         color="white"
+        mb={-4}
         fontSize={{ base: 'xl', sm: '2xl', lg: '4xl' }}
+        lineHeight={1}
         fontWeight={600}
         fontFamily={'Montserrat'}
       >
@@ -17,6 +19,7 @@ export const BasicBlurb = () => {
       <Text
         textAlign='center'
         color="white"
+        lineHeight={1.1}
         fontWeight={500}
         fontFamily={'Montserrat'}
       >
