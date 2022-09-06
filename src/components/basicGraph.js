@@ -1,5 +1,6 @@
 import React from 'react'
 import { convertUnits } from '../services/crunchNumbers'
+import { Text, HStack, Box } from '@chakra-ui/react'
 import {
   ResponsiveContainer,
   Area,
@@ -24,7 +25,67 @@ const graphColors = {
   monthlyRevenue: '#FAF4D4',
 }
 
-export const BasicGraph = ({ data }) => {
+const renderCusomLegend = (props) => {
+  const { payload } = props
+  return (
+    <div className="customized-legend">
+      <Box
+        backgroundColor={'#181919'}
+        border={'1px solid white'}
+        borderRadius={'lg'}
+      >
+        <HStack>
+        {
+          payload.map((entry) => {
+            const { dataKey, value, color } = entry
+            return (
+                <span className="legend-item" key={dataKey}>
+                  <Text color={color} textAlign={'center'}>{value}</Text>
+                </span>
+            )
+          })
+        }
+        </HStack>
+      </Box>
+    </div>
+  )
+}
+
+const CustomTooltip = (data) => {
+  const { active, payload, label, setActive, setPayload, setLabel } = data
+  setActive(active)
+  if (active && payload && payload.length) {
+    setPayload(payload)
+    setLabel(label)
+    return null
+  }
+
+  return null;
+};
+
+const CustomLabel = (props) => {
+  const { y, width } = props.viewBox
+  return (
+    <g>
+      <rect x={(width / 2)} y={y-25} width="111" height="25" rx="6" fill="#181919"/>
+      <rect x={(width / 2)} y={y-25} width="110" height="24" rx="5.5" fill="#181919" stroke="white" strokeOpacity="0.8"/>
+      <text
+        x={55+(width / 2)}
+        y={y-12}
+        fill='white'
+        fontSize={11}
+        fontFamily='Montserrat'
+        fontWeight={600}
+        textAnchor="middle"
+        dominantBaseline="middle"
+      >
+        CAPEX Breakeven
+      </text>
+    </g>
+  )
+}
+
+export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
   const breakeven = data[0].breakeven
 
   const selectSeries = (event) => {
@@ -68,15 +129,8 @@ export const BasicGraph = ({ data }) => {
           <YAxis yAxisId="right" orientation="right" tick={null} />
           <CartesianGrid stroke="#D9D9D9B2" fill='#181919' />
           <Tooltip
-              cursor={{ strokeDasharray: '3 3' }}
-              formatter={(value) =>
-                  new Intl.NumberFormat(undefined, {
-                  }).format(value)
-              }
-              labelFormatter={(label) =>
-                new Intl.NumberFormat(undefined, {
-                }).format(label)
-              }
+            content={<CustomTooltip setActive={setActive} setPayload={setPayload} setLabel={setLabel} />}
+            cursor={{ strokeDasharray: '3 3' }}
           />
           <defs>
               <linearGradient
@@ -103,9 +157,6 @@ export const BasicGraph = ({ data }) => {
           <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke={graphColors.hardware} fill={graphColors.hardware} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="cashflow" name='Cashflow' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="netPosition" name='Net Position' stroke={graphColors.netPosition} fill={graphColors.netPosition} strokeWidth={3} dot={null} />
-          <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeDasharray="4 4">
-            <Label fill={graphColors.breakeven} position='top'>CAPEX breakeven</Label>
-          </ReferenceLine>
           <Area
               type="monotone"
               dataKey="netProfitCumulative"
@@ -122,7 +173,10 @@ export const BasicGraph = ({ data }) => {
               strokeWidth={2}
               fill="url(#colorUv)"
           />
-          <Legend onClick={selectSeries} />
+          <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeDasharray="4 4">
+            <Label fill={graphColors.breakeven} position='top' content={CustomLabel}></Label>
+          </ReferenceLine>
+          <Legend onClick={selectSeries} content={renderCusomLegend} />
         </ComposedChart>
       </ResponsiveContainer>
   )
