@@ -122,7 +122,7 @@ const FormComponent = ({setData}) => {
                         children="months"
                         color={'white'}
                         opacity={0.6}
-                        pb={4}
+                        pb={3}
                         pr={6}
                       />
                     </InputGroup>
@@ -141,7 +141,7 @@ const FormComponent = ({setData}) => {
                         value={values.initialPrice}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -172,7 +172,7 @@ const FormComponent = ({setData}) => {
                         value={values.hashrate}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' children={'TH/s'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'TH/s'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -189,7 +189,7 @@ const FormComponent = ({setData}) => {
                         value={values.powerConsumption}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'W'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3'pr={1} mr={-2} children={'W'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -206,7 +206,7 @@ const FormComponent = ({setData}) => {
                         value={values.powerCostPerKwh}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -223,7 +223,7 @@ const FormComponent = ({setData}) => {
                         value={values.blockSubsidy}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'BTC'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -240,7 +240,7 @@ const FormComponent = ({setData}) => {
                         value={values.poolFee}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' mr={-2} pr={1} children={'%'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -257,7 +257,7 @@ const FormComponent = ({setData}) => {
                         value={values.txFees}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' children={'BTC'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'BTC'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -274,7 +274,7 @@ const FormComponent = ({setData}) => {
                         value={values.otherFees}
                         onChange={handleChange}
                       />
-                      <InputRightElement color={'white'} opacity={0.6} pb='4' mr={-2} children={'%'} />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' mr={-2} pr={1} children={'%'} />
                     </InputGroup>
                   </FormControl>
                 </StyledTooltip>
@@ -296,7 +296,7 @@ const FormComponent = ({setData}) => {
                           value={values.difficultyIncrement}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -313,7 +313,7 @@ const FormComponent = ({setData}) => {
                           value={values.priceIncrement}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -330,7 +330,7 @@ const FormComponent = ({setData}) => {
                           value={values.capex}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -347,7 +347,7 @@ const FormComponent = ({setData}) => {
                           value={values.opex}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' children={'USD'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -364,7 +364,7 @@ const FormComponent = ({setData}) => {
                           value={values.hwValue}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3'pr={1} children={'sats'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -381,7 +381,7 @@ const FormComponent = ({setData}) => {
                           value={values.hwDepreciation}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -398,7 +398,7 @@ const FormComponent = ({setData}) => {
                           value={values.infraValue}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' children={'sats'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -415,7 +415,7 @@ const FormComponent = ({setData}) => {
                           value={values.infraDepreciation}
                           onChange={handleChange}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
@@ -433,7 +433,7 @@ const FormComponent = ({setData}) => {
                           onChange={handleChange}
                           mb={8}
                         />
-                        <InputRightElement color={'white'} opacity={0.6} pb='4' pr={4} children={'%/year'} />
+                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                       </InputGroup>
                     </FormControl>
                   </StyledTooltip>
