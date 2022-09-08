@@ -24,26 +24,6 @@ import { getHashrate, getBlockHeight/* , getDifficultyAdjustment */ } from "../s
 import initialValues from "../helpers/initialValues"
 const { createDataSet, convertUnits/* , calculateHalvingProgress, convertToTerra */ } = require("../services/crunchNumbers")
 
-// V1 MUST-HAVES
-// FIXME: Block based time period – Nonce
-// TODO: Halving adjustment – Nonce to check what I mean here
-// TODO: Populate initial difficulty from API – Nonce
-// TODO: Sensible input validation limits – Nonce
-
-// WISHLIST
-// TODO: Toggle graph options – RDM Outlaw https://recharts.org/en-US/examples/LegendEffectOpacity 
-// TODO: Add block height, current hash rate cards – Nonce
-// TODO: onClick show full number, otherwise show abbreviated – RDM Outlaw
-// TODO: An average difficulty adjustment per epoch instead of annual change (e.g. 2% average upward difficulty per epoch) – Think about the UX of this
-// TODO: Presets e.g. hashrate growth, price growth, etc.
-// TODO: Calculate for reinvesting in new HR
-// TODO: Mark where net position begins to decline when depreciation is higher than net profit
-// TODO: Switch between sats and dollars
-// TODO: Can we do real-time graph updates as you scroll values on a given field? Helps get a sense of how certain inputs are affecting profitability
-// TODO: Depreciation toggle against lifetime sats production. i.e. if half of sats are produced year 1, then ASICs depreciate by half that year. Toggle should change to time period
-// TODO: Hide "advanced" options – Do we need? Sensible defaults instead?
-
-
 const StyledTooltip = ({ children, title, blurb, ...props }) => {
   return (
     <Tooltip
