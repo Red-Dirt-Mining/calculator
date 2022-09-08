@@ -73,7 +73,8 @@ const StyledTooltip = ({ children, title, blurb, ...props }) => {
 const StyledField = ({ children, ...props }) => {
   return (
     <Field
-      width={208}
+      width={{xl: 208, lg: 140, md: 208, sm: 208, base: 208}}
+      padding={{xl: 2, lg: 2, md: 2, sm: 2, base: 2}}
       mb={2}
       as={Input}
       rounded={'md'}
@@ -103,8 +104,8 @@ const FormComponent = ({setData}) => {
         <Form>
           <HStack spacing={4} p={2}>
             <Box p={4}>
-              <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
-                <VStack spacing={1} w={208} >
+                <VStack spacing={1} width={{xl: 208, lg: 140, md: 208, sm: 208, base: 208}} >
+                <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
                 <StyledTooltip
                   title='Time Period'
                   blurb='The time period you want to calculate profitability for.'
@@ -282,7 +283,7 @@ const FormComponent = ({setData}) => {
             </Box>
             <Box p={4}>
               <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
-                <VStack spacing={1} w={208}>
+                <VStack spacing={1} width={{xl: 208, lg: 140, md: 208, sm: 208, base: 208}}>
                   <StyledTooltip
                     title='Difficulty Increment'
                     blurb='Percentage change in difficulty per year.'
