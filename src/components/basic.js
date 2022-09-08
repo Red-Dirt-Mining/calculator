@@ -108,7 +108,7 @@ const FormComponent = ({setData}) => {
                 <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
                 <StyledTooltip
                   title='Time Period'
-                  blurb='The time period you want to calculate profitability for.'
+                  blurb='The time period for which you wish to calculate profitability.'
                 >
                   <FormControl>
                     <FormLabel htmlFor="months" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Time Period</FormLabel>
@@ -131,7 +131,7 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Initial Price'
-                  blurb='Price of Bitcoin in USD at the beginning of the time period.'
+                  blurb='Price of Bitcoin in USD at the beginning of the Time Period.'
                 >
                   <FormControl>
                     <FormLabel htmlFor="initialPrice" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Price</FormLabel>
@@ -148,7 +148,7 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Network Difficulty'
-                  blurb='Difficulty to mine the next block.'
+                  blurb='Current difficulty to mine the next block.'
                 >
                   <FormControl>
                     <FormLabel htmlFor="networkDifficulty" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Network Difficulty</FormLabel>
@@ -196,7 +196,7 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Power Rate'
-                  blurb='Power price denominated in USD per kWh.'
+                  blurb='Price of power denominated in USD per kWh.'
                 >
                   <FormControl>
                     <FormLabel htmlFor="powerCostPerKwh" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Power Rate</FormLabel>
@@ -213,7 +213,7 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Block Subsidy'
-                  blurb='Amount of new Bitcoin minted per block.'
+                  blurb='Current amount of new Bitcoin minted per block.'
                 >
                   <FormControl>
                     <FormLabel htmlFor="blockSubsidy" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Block Subsidy</FormLabel>
@@ -230,7 +230,7 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Pool Fee'
-                  blurb='Percentage fees paid to a mining pool.'
+                  blurb='Percentage fee paid to a mining pool.'
                 >
                   <FormControl>
                     <FormLabel htmlFor="poolFee" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Pool Fee</FormLabel>
@@ -247,7 +247,7 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Average Transaction Fees'
-                  blurb='Average value of transaction fees per block mined.'
+                  blurb='Average value of transaction fees per block.'
                 >
                   <FormControl>
                     <FormLabel htmlFor="txFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Avg. Transaction Fees</FormLabel>
