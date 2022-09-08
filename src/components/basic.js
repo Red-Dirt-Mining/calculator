@@ -14,6 +14,7 @@ import {
   HStack,
   Container,
   Stack,
+  Flex
 } from "@chakra-ui/react"
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
@@ -26,14 +27,11 @@ const { createDataSet, convertUnits/* , calculateHalvingProgress, convertToTerra
 // V1 MUST-HAVES
 // FIXME: Block based time period – Nonce
 // TODO: Halving adjustment – Nonce to check what I mean here
-// TODO: Toggle graph options – RDM Outlaw https://recharts.org/en-US/examples/LegendEffectOpacity 
 // TODO: Populate initial difficulty from API – Nonce
 // TODO: Sensible input validation limits – Nonce
 
-// V1 COSMETIC
-// TODO: Pull out data to the side to income statement instead of tooltip – Nonce
-
 // WISHLIST
+// TODO: Toggle graph options – RDM Outlaw https://recharts.org/en-US/examples/LegendEffectOpacity 
 // TODO: Add block height, current hash rate cards – Nonce
 // TODO: onClick show full number, otherwise show abbreviated – RDM Outlaw
 // TODO: An average difficulty adjustment per epoch instead of annual change (e.g. 2% average upward difficulty per epoch) – Think about the UX of this
@@ -462,6 +460,7 @@ const IncomeStatement = ({ active, payload, label }) => {
         borderRadius={'lg'}
         fontFamily={'Montserrat'}
         p={2}
+        px={6}
         pt={4}
       >
         <Heading textAlign={'center'} size={'sm'} fontWeight={500}>INCOME STATEMENT</Heading>
@@ -470,58 +469,100 @@ const IncomeStatement = ({ active, payload, label }) => {
           backgroundColor={payload[0].color}
           color={'#181919'}
           borderRadius={'lg'}
+          width={{base: '290px', md: '375px', lg: '290px', xl: '375px'}}
+          fontSize={14}
+          fontWeight={600}
           p={2}
           mb={8}
         >
-          <Text textAlign={'center'}>{`${payload[0].name}: ${convertUnits(payload[0].value)} sats`}</Text>
+          <Flex justifyContent={'space-between'}>
+            <Text>{`${payload[0].name}:`}</Text>
+            <Text>{`${convertUnits(payload[0].value)} sats`}</Text>
+          </Flex>
         </Box>
         <Box
           backgroundColor={payload[1].color}
           borderRadius={'lg'}
+          width={{base: '290px', md: '375px', lg: '290px', xl: '375px'}}
+          fontSize={14}
+          fontWeight={600}
           p={2}
           mb={8}
         >
-          <Text textAlign={'center'}>{`${payload[1].name}: ${convertUnits(payload[1].value)} sats`}</Text>
+          <Flex justifyContent={'space-between'}>
+            <Text>{`${payload[1].name}:`}</Text>
+            <Text>{`${convertUnits(payload[1].value)} sats`}</Text>
+          </Flex>
         </Box>
         <Box
           backgroundColor={payload[2].color}
           borderRadius={'lg'}
+          width={{base: '290px', md: '375px', lg: '290px', xl: '375px'}}
+          fontSize={14}
+          fontWeight={600}
           p={2}
           mb={8}
         >
-          <Text textAlign={'center'}>{`${payload[2].name}: ${convertUnits(payload[2].value)} sats`}</Text>
+          <Flex justifyContent={'space-between'}>
+            <Text>{`${payload[2].name}:`}</Text>
+            <Text>{`${convertUnits(payload[2].value)} sats`}</Text>
+          </Flex>
         </Box>
         <Box
           backgroundColor={payload[3].color}
           borderRadius={'lg'}
+          width={{base: '290px', md: '375px', lg: '290px', xl: '375px'}}
+          fontSize={14}
+          fontWeight={600}
           p={2}
           mb={8}
         >
-          <Text textAlign={'center'}>{`${payload[3].name}: ${convertUnits(payload[3].value)} sats`}</Text>
+          <Flex justifyContent={'space-between'}>
+            <Text>{`${payload[3].name}:`}</Text>
+            <Text>{`${convertUnits(payload[3].value)} sats`}</Text>
+          </Flex>
         </Box>
         <Box
           backgroundColor={payload[4].color}
           borderRadius={'lg'}
+          width={{base: '290px', md: '375px', lg: '290px', xl: '375px'}}
+          fontSize={14}
+          fontWeight={600}
           p={2}
           mb={8}
         >
-          <Text textAlign={'center'}>{`${payload[4].name}: ${convertUnits(payload[4].value)} sats`}</Text>
+          <Flex justifyContent={'space-between'}>
+            <Text>{`${payload[4].name}:`}</Text>
+            <Text>{`${convertUnits(payload[4].value)} sats`}</Text>
+          </Flex>
         </Box>
         <Box
           backgroundColor={payload[5].color}
           borderRadius={'lg'}
+          width={{base: '290px', md: '375px', lg: '290px', xl: '375px'}}
+          fontSize={14}
+          fontWeight={600}
           p={2}
           mb={8}
         >
-          <Text textAlign={'center'}>{`${payload[5].name}: ${convertUnits(payload[5].value)} sats`}</Text>
+          <Flex justifyContent={'space-between'}>
+            <Text>{`${payload[5].name}:`}</Text>
+            <Text>{`${convertUnits(payload[5].value)} sats`}</Text>
+          </Flex>
         </Box>
         <Box
           backgroundColor={payload[6].color}
           borderRadius={'lg'}
+          width={{base: '290px', md: '375px', lg: '290px', xl: '375px'}}
+          fontSize={14}
+          fontWeight={600}
           p={2}
           mb={8}
         >
-          <Text textAlign={'center'}>{`${payload[6].name}: ${convertUnits(payload[6].value)} sats`}</Text>
+          <Flex justifyContent={'space-between'}>
+            <Text>{`${payload[6].name}:`}</Text>
+            <Text>{`${convertUnits(payload[6].value)} sats`}</Text>
+          </Flex>
         </Box>
       </Box>
     );
