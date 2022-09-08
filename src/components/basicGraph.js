@@ -34,6 +34,7 @@ const renderCusomLegend = (props) => {
         backgroundColor={'#181919'}
         border={'1px solid white'}
         borderRadius={'lg'}
+        p={2}
       >
         <HStack>
         {
@@ -41,7 +42,7 @@ const renderCusomLegend = (props) => {
             const { dataKey, value, color } = entry
             return (
                 <span className="legend-item" key={dataKey}>
-                  <Text color={color} textAlign={'center'}>{value}</Text>
+                  <Text fontSize={13} fontFamily={'Montserrat'} fontWeight={600} color={color} textAlign={'center'}>{value}</Text>
                 </span>
             )
           })
