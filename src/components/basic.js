@@ -14,7 +14,8 @@ import {
   HStack,
   Container,
   Stack,
-  Flex
+  Flex,
+  Spacer
 } from "@chakra-ui/react"
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
@@ -27,7 +28,7 @@ const { createDataSet, convertUnits/* , calculateHalvingProgress, convertToTerra
 const StyledTooltip = ({ children, title, blurb, ...props }) => {
   return (
     <Tooltip
-      width={208}
+      width={{xl: 208, lg: 140, sm: 208, base: 140}}
       bg={'#181919'}
       color={'white'}
       borderRadius={'lg'}
@@ -51,7 +52,8 @@ const StyledTooltip = ({ children, title, blurb, ...props }) => {
 const StyledField = ({ children, ...props }) => {
   return (
     <Field
-      width={208}
+      width={{xl: 208, lg: 140, sm: 208, base: 140}}
+      py={{base: 2}}
       mb={2}
       as={Input}
       rounded={'md'}
@@ -64,6 +66,19 @@ const StyledField = ({ children, ...props }) => {
     >
       {children}
     </Field>
+  )
+}
+
+const StyledFormLabel = ({ children, ...props }) => {
+  return (
+    <FormLabel
+      mb={0}
+      sx={{ fontFamily: "Montserrat", fontWeight: 600 }}
+      fontSize={{xl: '16px', lg: '12px', sm: '16px', base: '12px'}}
+      {...props}
+    >
+      {children}
+    </FormLabel>
   )
 }
 
@@ -81,14 +96,14 @@ const FormComponent = ({setData}) => {
         <Form>
           <HStack spacing={4} p={2}>
             <Box p={4}>
-              <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
-                <VStack spacing={1} w={208} >
+              <VStack spacing={1} width={{xl: 208, lg: 140, md: 208, sm: 208, base: 140}} >
+                <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >INPUTS</Heading>
                 <StyledTooltip
                   title='Time Period'
-                  blurb='The time period you want to calculate profitability for.'
+                  blurb='The time period for which you wish to calculate profitability.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="months" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Time Period</FormLabel>
+                    <StyledFormLabel htmlFor="months">Time Period</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="months"
@@ -108,10 +123,10 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Initial Price'
-                  blurb='Price of Bitcoin in USD at the beginning of the time period.'
+                  blurb='Price of Bitcoin in USD at the beginning of the Time Period.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="initialPrice" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Initial Price</FormLabel>
+                    <StyledFormLabel htmlFor="initialPrice">Initial Price</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="initialPrice"
@@ -125,10 +140,10 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Network Difficulty'
-                  blurb='Difficulty to mine the next block.'
+                  blurb='Current difficulty to mine the next block.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="networkDifficulty" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Network Difficulty</FormLabel>
+                    <StyledFormLabel htmlFor="networkDifficulty">Network Difficulty</StyledFormLabel>
                     <StyledField
                       id="networkDifficulty"
                       name="networkDifficulty"
@@ -142,7 +157,7 @@ const FormComponent = ({setData}) => {
                   blurb='Size of mining operation in TH/s.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="hashrate" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Hashrate</FormLabel>
+                    <StyledFormLabel htmlFor="hashrate">Hashrate</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="hashrate"
@@ -159,7 +174,7 @@ const FormComponent = ({setData}) => {
                   blurb='Total amount of power consumed in a given time period in Watts.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="powerConsumption" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Power Consumption</FormLabel>
+                    <StyledFormLabel htmlFor="powerConsumption">Power Consumption</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="powerConsumption"
@@ -173,10 +188,10 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Power Rate'
-                  blurb='Power price denominated in USD per kWh.'
+                  blurb='Price of power denominated in USD per kWh.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="powerCostPerKwh" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Power Rate</FormLabel>
+                    <StyledFormLabel htmlFor="powerCostPerKwh">Power Rate</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="powerCostPerKwh"
@@ -190,10 +205,10 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Block Subsidy'
-                  blurb='Amount of new Bitcoin minted per block.'
+                  blurb='Current amount of new Bitcoin minted per block.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="blockSubsidy" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Block Subsidy</FormLabel>
+                    <StyledFormLabel htmlFor="blockSubsidy">Block Subsidy</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="blockSubsidy"
@@ -207,10 +222,10 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Pool Fee'
-                  blurb='Percentage fees paid to a mining pool.'
+                  blurb='Percentage fee paid to a mining pool.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="poolFee" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Pool Fee</FormLabel>
+                    <StyledFormLabel htmlFor="poolFee">Pool Fee</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="poolFee"
@@ -224,10 +239,10 @@ const FormComponent = ({setData}) => {
                 </StyledTooltip>
                 <StyledTooltip
                   title='Average Transaction Fees'
-                  blurb='Average value of transaction fees per block mined.'
+                  blurb='Average value of transaction fees per block.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="txFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Avg. Transaction Fees</FormLabel>
+                    <StyledFormLabel htmlFor="txFees">Avg. Transaction Fee</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="txFees"
@@ -244,7 +259,7 @@ const FormComponent = ({setData}) => {
                   blurb='Additional operational expenses such as dev fees for firmware, management and hosting fees, etc.'
                 >
                   <FormControl>
-                    <FormLabel htmlFor="otherFees" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Other Fees</FormLabel>
+                    <StyledFormLabel htmlFor="otherFees">Other Fees</StyledFormLabel>
                     <InputGroup>
                       <StyledField
                         id="otherFees"
@@ -259,168 +274,168 @@ const FormComponent = ({setData}) => {
               </VStack>
             </Box>
             <Box p={4}>
-              <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
-                <VStack spacing={1} w={208}>
-                  <StyledTooltip
-                    title='Difficulty Increment'
-                    blurb='Percentage change in difficulty per year.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="difficultyIncrement" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Difficulty Increment</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="difficultyIncrement"
-                          name="difficultyIncrement"
-                          value={values.difficultyIncrement}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Price Increment'
-                    blurb='Percentage change in price per year.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="priceIncrement" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Price Increment</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="priceIncrement"
-                          name="priceIncrement"
-                          value={values.priceIncrement}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Capital Expenditure'
-                    blurb='Initial capital expenditure denominated in sats.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="capex" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Capital Expenditure</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="capex"
-                          name="capex"
-                          value={values.capex}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Monthly Operating Expenses'
-                    blurb='Monthly operating expenses denominated in USD.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="opex" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Monthly OpEx</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="opex"
-                          name="opex"
-                          value={values.opex}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Initial Hardware Value'
-                    blurb='Value of hardware at time of purchase denominated in sats.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="hwValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Hardware Value</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="hwValue"
-                          name="hwValue"
-                          value={values.hwValue}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3'pr={1} children={'sats'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Change in Hardware Value'
-                    blurb='Percentage appreciation or depreciation per year in hardware.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="hwDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Hardware Depr.</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="hwDepreciation"
-                          name="hwDepreciation"
-                          value={values.hwDepreciation}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Initial Infrastructure Value'
-                    blurb='Value of infrastructure at time of purchase denominated in sats.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="infraValue" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Infrastructure Value</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="infraValue"
-                          name="infraValue"
-                          value={values.infraValue}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Change in Infrastructure Value'
-                    blurb='Percentage appreciation or depreciation per year in infrastructure.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="infraDepreciation" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Infrastructure Depr.</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="infraDepreciation"
-                          name="infraDepreciation"
-                          value={values.infraDepreciation}
-                          onChange={handleChange}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
-                  <StyledTooltip
-                    title='Discount Rate'
-                    blurb='Interest rate used to discount future cashflows to present value.'
-                  >
-                    <FormControl>
-                      <FormLabel htmlFor="discountRate" mb={0} sx={{ fontFamily: "Montserrat", fontWeight: 600 }}>Discount Rate</FormLabel>
-                      <InputGroup>
-                        <StyledField
-                          id="discountRate"
-                          name="discountRate"
-                          value={values.discountRate}
-                          onChange={handleChange}
-                          mb={8}
-                        />
-                        <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
-                      </InputGroup>
-                    </FormControl>
-                  </StyledTooltip>
+              <VStack spacing={1} width={{xl: 208, lg: 140, md: 208, sm: 208, base: 140}}>
+                <Heading size='sm' pb={2} textAlign={'center'} w={208} as="h2" sx={{ fontFamily: "Montserrat", fontWeight: 600 }} >ADVANCED</Heading>
+                <StyledTooltip
+                  title='Difficulty Increment'
+                  blurb='Percentage change in difficulty per year.'
+                >
                   <FormControl>
-                    <Button type="submit" mb={2} size={'sm'} width={'100%'} variant={'solid'} backgroundColor={'#638269'} border={'1px'} borderColor={'white'} _hover={{bg: '#FAF4D4', color: '#638269'}}>
-                      Update
-                    </Button>
+                    <StyledFormLabel htmlFor="difficultyIncrement">Difficulty Increment</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="difficultyIncrement"
+                        name="difficultyIncrement"
+                        value={values.difficultyIncrement}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
+                    </InputGroup>
                   </FormControl>
-                </VStack>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Price Increment'
+                  blurb='Percentage change in price per year.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="priceIncrement">Price Increment</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="priceIncrement"
+                        name="priceIncrement"
+                        value={values.priceIncrement}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Capital Expenditure'
+                  blurb='Initial capital expenditure denominated in sats.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="capex">Capital Expenditure</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="capex"
+                        name="capex"
+                        value={values.capex}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Monthly Operating Expenses'
+                  blurb='Monthly operating expenses denominated in USD.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="opex">Monthly OpEx</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="opex"
+                        name="opex"
+                        value={values.opex}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Initial Hardware Value'
+                  blurb='Value of hardware at time of purchase denominated in sats.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="hwValue">Hardware Value</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="hwValue"
+                        name="hwValue"
+                        value={values.hwValue}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3'pr={1} children={'sats'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Change in Hardware Value'
+                  blurb='Percentage appreciation or depreciation per year in hardware.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="hwDepreciation">Hardware Depr.</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="hwDepreciation"
+                        name="hwDepreciation"
+                        value={values.hwDepreciation}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Initial Infrastructure Value'
+                  blurb='Value of infrastructure at time of purchase denominated in sats.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="infraValue">Infrastructure Value</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="infraValue"
+                        name="infraValue"
+                        value={values.infraValue}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Change in Infrastructure Value'
+                  blurb='Percentage appreciation or depreciation per year in infrastructure.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="infraDepreciation">Infrastructure Depr.</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="infraDepreciation"
+                        name="infraDepreciation"
+                        value={values.infraDepreciation}
+                        onChange={handleChange}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <StyledTooltip
+                  title='Discount Rate'
+                  blurb='Interest rate used to discount future cashflows to present value.'
+                >
+                  <FormControl>
+                    <StyledFormLabel htmlFor="discountRate">Discount Rate</StyledFormLabel>
+                    <InputGroup>
+                      <StyledField
+                        id="discountRate"
+                        name="discountRate"
+                        value={values.discountRate}
+                        onChange={handleChange}
+                        mb={8}
+                      />
+                      <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
+                    </InputGroup>
+                  </FormControl>
+                </StyledTooltip>
+                <FormControl>
+                  <Button type="submit" mb={2} size={'sm'} width={'100%'} variant={'solid'} backgroundColor={'#3A355A'} border={'1px'} borderColor={'white'} _hover={{bg: '#322b64',}}>
+                    Update
+                  </Button>
+                </FormControl>
+              </VStack>
             </Box>
           </HStack>
         </Form>
@@ -583,17 +598,17 @@ const Basic = () => {
 
   return (
     <Box
-      w={'full'}
-      h={'full'}
       bgGradient="linear(180deg, #181919 18.75%, #7D443C 100%)"
+      pt={5}
       >
       <BasicBlurb />
-      <Container maxW={'7xl'} color={'white'} mt={-20}>
+      <Container maxW={'7xl'} color={'white'} mt={-20} overflow={'hidden'}>
         <Stack
           align={'center'}
           spacing={{ base: 8, md: 10 }}
           py={{ base: 20, md: 28 }}
           direction={{ base: 'column', lg: 'row' }}>
+            <Spacer />
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>
             <FormComponent setData={setData} />
             <IncomeStatement active={active} payload={payload} label={label} />
@@ -602,13 +617,15 @@ const Basic = () => {
             <Box
               p={-4}
               m={-4}
-              height={400}
-              width={{xl: 740, lg: 658, md: 568, sm: 686, base: 416}}
+              ml={{ sm: 19, lg: 0 }}
+              height={{xl: 400, lg: 310, md: 330, sm: 300, base: 280}}
+              width={{xl: 730, lg: 570, md: 600, sm: 540, base: 416}}
               overflow={'hidden'}>
               <BasicGraph data={data.timeSeriesData} setActive={setActive} setPayload={setPayload} setLabel={setLabel} />
             </Box>
             <BasicStats data={data.otherData} />
           </Stack>
+          <Spacer />
         </Stack>
       </Container>
     </Box>

@@ -33,13 +33,18 @@ const StatsCard = ({ title, stat, leftUnit, rightUnit }) => {
             mt='1'
             fontWeight='semibold'
             as='h4'
-            lineHeight='tight'
+            lineHeight='150%'
             noOfLines={1}
-            sx={{ fontFamily: "Montserrat", fontWeight: 500, fontSize: 14, lineHeight: '150%' }}
+            sx={{ fontFamily: "Montserrat", fontWeight: 500 }}
+            fontSize={{xl: '14px', md: '12px', sm: '10px', base: '8px'}}
           >
             {title}
           </Box>
-          <Box sx={{ fontFamily: "Montserrat", fontWeight: 600, fontSize: 24, lineHeight: '150%' }}>
+          <Box
+            sx={{ fontFamily: "Montserrat", fontWeight: 600 }}
+            fontSize={{xl: '24px', md: '20px', sm: '18px', base: '12px'}}
+            lineHeight={'150%'}
+          >
             {leftUnit}{convertUnits(stat)}{rightUnit}
           </Box>
         </Box>

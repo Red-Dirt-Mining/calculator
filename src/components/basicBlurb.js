@@ -1,4 +1,4 @@
-import { Heading, Text } from "@chakra-ui/react"
+import { Heading, Text, Link } from "@chakra-ui/react"
 
 export const BasicBlurb = () => {
   return (
@@ -8,10 +8,11 @@ export const BasicBlurb = () => {
         textAlign='center'
         color="white"
         mb={-4}
-        fontSize={{ base: 'xl', sm: '2xl', lg: '4xl' }}
+        fontSize={{ base: '22px', md: '30px', lg: '36px' }}
         lineHeight={1}
         fontWeight={600}
         fontFamily={'Montserrat'}
+        
       >
         THE OPEN SOURCE MINING CALCULATOR
       </Heading>
@@ -20,12 +21,15 @@ export const BasicBlurb = () => {
         textAlign='center'
         color="white"
         lineHeight={1.1}
-        fontWeight={500}
+        fontWeight= {500}
         fontFamily={'Montserrat'}
+        fontSize={{ base: '14px', md: '16px', lg: '20px' }}
+        
       >
-        Welcome to the Red Dirt Mining sats-denominated mining calculator.
+        The <Link color='#70443C' href='https://github.com/Red-Dirt-Mining/calculator' target={'_blank'} rel={'noopener noreferrer'}>
+          FOSS
+        </Link>, bitcoin-denominated profitability calculator.
       </Text>
-      <br />
     </div>
   )
 }

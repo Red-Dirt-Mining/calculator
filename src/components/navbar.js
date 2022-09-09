@@ -31,7 +31,7 @@ export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <Box overflow={'hidden'}>
       <Flex
         bg={useColorModeValue('#181919', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
@@ -68,7 +68,7 @@ export default function WithSubnavigation() {
           </RouterLink>
         </Flex>
 
-        <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+        <Flex display={{ base: 'none', md: 'flex' }} ml={10} mr={10}>
           <DesktopNav />
         </Flex>
 
@@ -106,9 +106,10 @@ const DesktopNav = () => {
                 as={RouterLink}
                 to={navItem.route ?? '#'}
                 p={2}
-                fontSize={'sm'}
+                fontSize={14}
+                fontFamily={'Montserrat'}
                 fontWeight={500}
-                color={linkColor}
+                color={navItem.active ? linkHoverColor : linkColor}
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
@@ -244,11 +245,12 @@ const MobileNavItem = ({ label, children, route }) => {
 
 const NAV_ITEMS = [
   {
-    label: 'Team',
+    label: 'TEAM',
     route: '#',
   },
   {
-    label: 'Products',
+    label: 'PRODUCTS',
+    active: true,
     children: [
       {
         label: 'Calculator',
@@ -263,7 +265,7 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'Education',
+    label: 'EDUCATION',
     children: [
       {
         label: 'Podcast',
@@ -286,5 +288,9 @@ const NAV_ITEMS = [
         route: '#',
       },
     ],
+  },
+  {
+    label: 'CONTACT',
+    route: '#',
   },
 ];
