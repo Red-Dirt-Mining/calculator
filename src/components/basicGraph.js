@@ -117,6 +117,7 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
           data={data}
           margin={{
             top: 20,
+            left: 20,
           }}
         >
           <XAxis
@@ -124,7 +125,7 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
             tick={null}
           />
           <YAxis 
-            unit=" sats"
+            unit={' sats'}
             stroke='#FFFFFF'
             style={{ fontSize: '14px', fontFamily: 'Montserrat', fontWeight: '500' }}
             tickFormatter={tick => convertUnits(tick)}
