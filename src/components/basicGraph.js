@@ -17,7 +17,7 @@ import {
 
 const graphColors = {
   cashflow: '#B04231',
-  hardware: '#053A42',
+  hardware: '#07535F',
   netPosition: '#2F8F9E',
   breakeven: '#7D443C',
   netMonthlyProfit: '#638269',
@@ -140,7 +140,7 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
           <Bar dataKey="monthlyRevenue" name='Net Monthly Revenue' barSize={20} fill={graphColors.monthlyRevenue} yAxisId='right' />
           <Bar dataKey="netMonthlyProfit" name='Net Monthly Profit' barSize={20} fill={graphColors.netMonthlyProfit} yAxisId='right' />
           <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke={graphColors.hardware} fill={graphColors.hardware} strokeWidth={3} dot={null} />
-          <Line type="monotone" dataKey="cashflow" name='Cashflow' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="cashflow" name='Free Cashflow' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="netPosition" name='Net Position' stroke={graphColors.netPosition} fill={graphColors.netPosition} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="netProfitCumulative" name='Cumulative Net Profit' stroke={graphColors.netProfitCumulative} fill={graphColors.netProfitCumulative} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="grossProfitCumulative" name='Cumulative Gross Profit' stroke={graphColors.grossProfitCumulative} fill={graphColors.grossProfitCumulative} strokeWidth={3} dot={null} />
