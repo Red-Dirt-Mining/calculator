@@ -417,7 +417,7 @@ const FormComponent = ({setData}) => {
                     </FormControl>
                   </StyledTooltip>
                   <FormControl>
-                    <Button type="submit" mb={2} size={'sm'} width={'100%'} variant={'solid'} backgroundColor={'#638269'} border={'1px'} borderColor={'white'} _hover={{bg: '#FAF4D4', color: '#638269'}}>
+                    <Button type="submit" mb={2} size={'sm'} width={'100%'} variant={'solid'} backgroundColor={'#3A355A'} border={'1px'} borderColor={'white'} _hover={{bg: '#322b64',}}>
                       Update
                     </Button>
                   </FormControl>
