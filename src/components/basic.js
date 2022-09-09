@@ -14,7 +14,8 @@ import {
   HStack,
   Container,
   Stack,
-  Flex
+  Flex,
+  Spacer
 } from "@chakra-ui/react"
 import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
@@ -606,6 +607,7 @@ const Basic = () => {
           spacing={{ base: 8, md: 10 }}
           py={{ base: 20, md: 28 }}
           direction={{ base: 'column', lg: 'row' }}>
+            <Spacer />
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>
             <FormComponent setData={setData} />
             <IncomeStatement active={active} payload={payload} label={label} />
@@ -614,13 +616,15 @@ const Basic = () => {
             <Box
               p={-4}
               m={-4}
-              height={400}
-              width={{xl: 740, lg: 658, md: 568, sm: 686, base: 416}}
+              ml={{ sm: 19, lg: 0 }}
+              height={{xl: 400, lg: 310, md: 330, sm: 300, base: 280}}
+              width={{xl: 730, lg: 570, md: 600, sm: 540, base: 416}}
               overflow={'hidden'}>
               <BasicGraph data={data.timeSeriesData} setActive={setActive} setPayload={setPayload} setLabel={setLabel} />
             </Box>
             <BasicStats data={data.otherData} />
           </Stack>
+          <Spacer />
         </Stack>
       </Container>
     </Box>
