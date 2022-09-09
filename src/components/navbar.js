@@ -68,7 +68,7 @@ export default function WithSubnavigation() {
           </RouterLink>
         </Flex>
 
-        <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+        <Flex display={{ base: 'none', md: 'flex' }} ml={10} mr={10}>
           <DesktopNav />
         </Flex>
 
@@ -106,9 +106,10 @@ const DesktopNav = () => {
                 as={RouterLink}
                 to={navItem.route ?? '#'}
                 p={2}
-                fontSize={'sm'}
+                fontSize={14}
+                fontFamily={'Montserrat'}
                 fontWeight={500}
-                color={linkColor}
+                color={navItem.active ? linkHoverColor : linkColor}
                 _hover={{
                   textDecoration: 'none',
                   color: linkHoverColor,
@@ -249,6 +250,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'PRODUCTS',
+    active: true,
     children: [
       {
         label: 'Calculator',
