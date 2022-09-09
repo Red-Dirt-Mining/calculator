@@ -599,6 +599,7 @@ const Basic = () => {
   return (
     <Box
       bgGradient="linear(180deg, #181919 18.75%, #7D443C 100%)"
+      pt={5}
       >
       <BasicBlurb />
       <Container maxW={'7xl'} color={'white'} mt={-20} overflow={'hidden'}>

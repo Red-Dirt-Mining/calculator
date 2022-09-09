@@ -244,11 +244,11 @@ const MobileNavItem = ({ label, children, route }) => {
 
 const NAV_ITEMS = [
   {
-    label: 'Team',
+    label: 'TEAM',
     route: '#',
   },
   {
-    label: 'Products',
+    label: 'PRODUCTS',
     children: [
       {
         label: 'Calculator',
@@ -263,7 +263,7 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'Education',
+    label: 'EDUCATION',
     children: [
       {
         label: 'Podcast',
@@ -286,5 +286,9 @@ const NAV_ITEMS = [
         route: '#',
       },
     ],
+  },
+  {
+    label: 'CONTACT',
+    route: '#',
   },
 ];

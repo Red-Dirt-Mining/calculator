@@ -31,6 +31,7 @@ const renderCusomLegend = (props) => {
   return (
     <div className="customized-legend">
       <Box
+        width={{ base: '91%' }}
         backgroundColor={'#181919'}
         border={'1px solid white'}
         borderRadius={'lg'}
@@ -42,7 +43,7 @@ const renderCusomLegend = (props) => {
             const { dataKey, value, color } = entry
             return (
                 <span className="legend-item" key={dataKey}>
-                  <Text fontSize={13} fontFamily={'Montserrat'} fontWeight={600} color={color} textAlign={'center'}>{value}</Text>
+                  <Text fontSize={{sm: 10, base: 8}} fontFamily={'Montserrat'} fontWeight={600} color={color} textAlign={'center'}>{value}</Text>
                 </span>
             )
           })
