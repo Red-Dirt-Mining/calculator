@@ -31,7 +31,7 @@ export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <Box overflow={'hidden'}>
       <Flex
         bg={useColorModeValue('#181919', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
