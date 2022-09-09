@@ -3,7 +3,6 @@ import { convertUnits } from '../services/crunchNumbers'
 import { Text, HStack, Box } from '@chakra-ui/react'
 import {
   ResponsiveContainer,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -23,6 +22,8 @@ const graphColors = {
   breakeven: '#7D443C',
   netMonthlyProfit: '#638269',
   monthlyRevenue: '#FAF4D4',
+  netProfitCumulative: '#777696',
+  grossProfitCumulative: '#CD5C5C',
 }
 
 const renderCusomLegend = (props) => {
@@ -33,6 +34,7 @@ const renderCusomLegend = (props) => {
         backgroundColor={'#181919'}
         border={'1px solid white'}
         borderRadius={'lg'}
+        p={2}
       >
         <HStack>
         {
@@ -40,7 +42,7 @@ const renderCusomLegend = (props) => {
             const { dataKey, value, color } = entry
             return (
                 <span className="legend-item" key={dataKey}>
-                  <Text color={color} textAlign={'center'}>{value}</Text>
+                  <Text fontSize={13} fontFamily={'Montserrat'} fontWeight={600} color={color} textAlign={'center'}>{value}</Text>
                 </span>
             )
           })
@@ -67,11 +69,11 @@ const CustomLabel = (props) => {
   const { y, width } = props.viewBox
   return (
     <g>
-      <rect x={(width / 2)} y={y-25} width="111" height="25" rx="6" fill="#181919"/>
-      <rect x={(width / 2)} y={y-25} width="110" height="24" rx="5.5" fill="#181919" stroke="white" strokeOpacity="0.8"/>
+      <rect x={(width / 2)} y={y-27} width="111" height="25" rx="6" fill="#181919"/>
+      <rect x={(width / 2)} y={y-27} width="110" height="24" rx="5.5" fill="#181919" stroke="white" strokeOpacity="0.8"/>
       <text
         x={55+(width / 2)}
-        y={y-12}
+        y={y-14}
         fill='white'
         fontSize={11}
         fontFamily='Montserrat'
@@ -124,6 +126,7 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
           <YAxis 
             unit=" sats"
             stroke='#FFFFFF'
+            style={{ fontSize: '14px', fontFamily: 'Montserrat', fontWeight: '500' }}
             tickFormatter={tick => convertUnits(tick)}
           />
           <YAxis yAxisId="right" orientation="right" tick={null} />
@@ -132,48 +135,14 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
             content={<CustomTooltip setActive={setActive} setPayload={setPayload} setLabel={setLabel} />}
             cursor={{ strokeDasharray: '3 3' }}
           />
-          <defs>
-              <linearGradient
-                  id="colorUv"
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-              >
-                  <stop
-                      offset="5%"
-                      stopColor="#8884d8"
-                      stopOpacity={0.8}
-                  />
-                  <stop
-                      offset="95%"
-                      stopColor="#8884d8"
-                      stopOpacity={0}
-                  />
-              </linearGradient>
-          </defs>
           <Bar dataKey="monthlyRevenue" name='Net Monthly Revenue' barSize={20} fill={graphColors.monthlyRevenue} yAxisId='right' />
           <Bar dataKey="netMonthlyProfit" name='Net Monthly Profit' barSize={20} fill={graphColors.netMonthlyProfit} yAxisId='right' />
           <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke={graphColors.hardware} fill={graphColors.hardware} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="cashflow" name='Cashflow' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="netPosition" name='Net Position' stroke={graphColors.netPosition} fill={graphColors.netPosition} strokeWidth={3} dot={null} />
-          <Area
-              type="monotone"
-              dataKey="netProfitCumulative"
-              name='Cumulative Net Profit'
-              stroke="#8884d8"
-              strokeWidth={2}
-              fill="url(#colorUv)"
-          />
-          <Area
-              type="monotone"
-              dataKey="grossProfitCumulative"
-              name='Cumulative Gross Profit'
-              stroke="#orange"
-              strokeWidth={2}
-              fill="url(#colorUv)"
-          />
-          <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeDasharray="4 4">
+          <Line type="monotone" dataKey="netProfitCumulative" name='Cumulative Net Profit' stroke={graphColors.netProfitCumulative} fill={graphColors.netProfitCumulative} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="grossProfitCumulative" name='Cumulative Gross Profit' stroke={graphColors.grossProfitCumulative} fill={graphColors.grossProfitCumulative} strokeWidth={3} dot={null} />
+          <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeWidth={2} strokeDasharray="4 4">
             <Label fill={graphColors.breakeven} position='top' content={CustomLabel}></Label>
           </ReferenceLine>
           <Legend onClick={selectSeries} content={renderCusomLegend} />
