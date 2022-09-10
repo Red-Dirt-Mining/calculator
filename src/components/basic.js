@@ -450,6 +450,7 @@ const IncomeStatement = ({ active, payload, label }) => {
     return (
       <Box
         position={'absolute'}
+        left={{ '2xl': '20%', xl: '14%', lg: '13%', md: '25%', sm: '20%', base: '5%' }}
         zIndex={2}
         backgroundColor={'#181919'}
         border={'1px solid white'}
