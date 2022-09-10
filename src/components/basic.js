@@ -62,6 +62,7 @@ const StyledField = ({ children, ...props }) => {
       opacity={0.6}
       size={'sm'}
       type='number'
+      focusBorderColor='#3A355A'
       {...props}
     >
       {children}
