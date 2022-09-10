@@ -36,6 +36,7 @@ const renderCusomLegend = (props) => {
         border={'1px solid white'}
         borderRadius={'lg'}
         p={2}
+        display={{ lg: 'none' }}
       >
         <HStack>
         {
