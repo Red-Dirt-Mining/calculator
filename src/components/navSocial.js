@@ -13,6 +13,7 @@ export default function FloatingSocialNavbar () {
       backgroundColor="#181919"
       border="1px solid white"
       p={2}
+      zIndex={1}
     >
       <VStack>
         <a href={`https://twitter.com/reddirtmining`} target='_blank' rel='noopener noreferrer'>
