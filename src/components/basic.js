@@ -619,13 +619,21 @@ const Basic = () => {
             <Box
               p={-4}
               m={-4}
+              mt={{ base: 0, md: 0, lg: 0, xl: 0 }}
               ml={{ sm: 19, lg: 0 }}
-              height={{xl: 400, lg: 310, md: 330, sm: 300, base: 280}}
-              width={{xl: 730, lg: 570, md: 600, sm: 540, base: 416}}
+              height={{xl: 500, lg: 465, md: 330, sm: 300, base: 280}}
+              width={{xl: 700, lg: 570, md: 600, sm: 540, base: 410}}
               overflow={'hidden'}>
               <BasicGraph data={data.timeSeriesData} setActive={setActive} setPayload={setPayload} setLabel={setLabel} />
             </Box>
-            <BasicStats data={data.otherData} />
+            <Box
+              alignContent={'right'}
+              width={{xl: 670, lg: 510, md: 600, sm: 540, base: 416}}
+              pl={{ xl: 20, lg: 20 }}
+              pr={{ xl: 7 }}
+              overflow={'hidden'}>
+              <BasicStats data={data.otherData} />
+            </Box>
           </Stack>
           <Spacer />
         </Stack>
