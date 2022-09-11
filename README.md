@@ -2,9 +2,9 @@
 
 Clone the repository to your machine and from the directory run `npm install` then `npm start`
 
-# Pull Requests
+# Contributing
 
-Create a new branch titled like so: `{featureType}/{nym}/{featureName}`, e.g. `bug/nonceraider/block-reward`, then open a pull request against `master`. It's a good idea to raise an issue first before investing too much time.
+Feel like contributing? That's awesome! We have a [contributing guide](CONTRIBUTING.md) to help guide you.
 
 # Getting Started with Create React App
 
