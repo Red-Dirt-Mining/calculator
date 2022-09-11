@@ -1,7 +1,7 @@
-Thanks for showing interest to contribute to The Open Source Calculator, you rock!
+Thanks for showing interest to contribute to The Open Source Calculator. You rock!
 
 When it comes to open source, there are different ways you can contribute, all
-of which are valuable. Here's a few guidelines that should help you as you
+of which are valuable. Here are a few guidelines that should help you as you
 prepare your contribution.
 
 ## Setup the Project
@@ -23,10 +23,6 @@ cd calculator
 
 > If you run into any issues during this step, kindly reach out to the Open Source Mining Calculator Community on [Telegram](https://t.me/+BHZdyAKFFoVlOGIx).
 
-To improve our development process, we've set up tooling and systems. Chakra UI
-uses a monorepo structure and we treat each component as an independent package
-that can be consumed in isolation.
-
 ### Tooling
 
 - [npm](https://docs.npmjs.com/about-npm) to manage packages and dependecnies
@@ -42,18 +38,18 @@ cross-component development and builds all components.
 
 **`npm start`**: starts the project locally.
 
-**`pnpm build`**: run build for all component packages.
+**`npm run build`**: run build for all component packages.
 
 
 ## Think you found a bug?
 
 Please conform to the issue template and provide a clear path to reproduction
-with a code example. The best way to show a bug is by sending a CodeSandbox
+with a code example if possible. The best way to show a bug is by sending a CodeSandbox
 link.
 
-## Proposing new or changed API?
+## Proposing new or changed features?
 
-Please provide thoughtful comments and some sample API code. Proposals that
+Please provide thoughtful comments and, if possible, some code. Proposals that
 don't line up with our roadmap or don't have a thoughtful explanation will be
 closed.
 
@@ -87,8 +83,7 @@ the following categories:
 - `chore`: all changes to the repository that do not fit into any of the above
   categories
 
-If you are interested in the detailed specification you can visit
-https://www.conventionalcommits.org/).
+If you are interested in the detailed specification you can visit [Conventional Commits](https://www.conventionalcommits.org/).
 
 ### Steps to PR
 
@@ -100,10 +95,11 @@ https://www.conventionalcommits.org/).
    commit type. `scope` is just a short id that describes the scope of work.
 
 3. Make and commit your changes following the
-   [commit convention] mentioned above.
+   commit conventions mentioned above.
 
 ## Want to write a blog post or help improve our docs?
 That would be amazing! Reach out to the core team [here](https://t.me/+BHZdyAKFFoVlOGIx). We would love to support you any way we can.
+
 ## License
 By contributing your code to the Open Source Mining Calulator GitHub repository, you agree to
 license your contribution under the MIT license.
