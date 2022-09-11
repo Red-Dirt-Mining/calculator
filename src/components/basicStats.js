@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Center, SimpleGrid, Tooltip } from "@chakra-ui/react"
+import { Box, SimpleGrid, Tooltip } from "@chakra-ui/react"
 import { convertUnits } from '../services/crunchNumbers'
 
 const addCommas = (n) => {
@@ -36,13 +36,13 @@ const StatsCard = ({ title, stat, leftUnit, rightUnit }) => {
             lineHeight='150%'
             noOfLines={1}
             sx={{ fontFamily: "Montserrat", fontWeight: 500 }}
-            fontSize={{xl: '14px', md: '12px', sm: '10px', base: '8px'}}
+            fontSize={{xl: '13px', lg: '9px', md: '12px', sm: '10px', base: '8px'}}
           >
             {title}
           </Box>
           <Box
             sx={{ fontFamily: "Montserrat", fontWeight: 600 }}
-            fontSize={{xl: '24px', md: '20px', sm: '18px', base: '12px'}}
+            fontSize={{xl: '20px', lg: '15px', md: '20px', sm: '18px', base: '12px'}}
             lineHeight={'150%'}
           >
             {leftUnit}{convertUnits(stat)}{rightUnit}
@@ -56,7 +56,6 @@ const StatsCard = ({ title, stat, leftUnit, rightUnit }) => {
 export const BasicStats = ({ data }) => {
 
   return (
-    <Center w={'100%'} h={'100%'} p={4}>
     <SimpleGrid columns={3} spacing={5} maxW={'3xl'}>
       <StatsCard title={"Avg. Cost of Production"} stat={data.costOfProduction} leftUnit={'$'} />
       <StatsCard title={"Electricity Break Even"} stat={data.breakevenElectricity} leftUnit={'$'} rightUnit={'/kWh'} />
@@ -65,6 +64,5 @@ export const BasicStats = ({ data }) => {
       <StatsCard title={"Total BTC Mined"} stat={data.totalMined} rightUnit={' sats'} />
       <StatsCard title={"Performance"} stat={data.satsPerTh} rightUnit={' sats/TH'} />
     </SimpleGrid>
-    </Center>
   )
 }

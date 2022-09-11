@@ -178,7 +178,8 @@ const DesktopSubNav = ({ label, route, subLabel }) => {
 const MobileNav = () => {
   return (
     <Stack
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={'#181919'}
+      color={useColorModeValue('gray.600', 'white')}
       p={4}
       display={{ md: 'none' }}>
       {NAV_ITEMS.map((navItem) => (
@@ -188,8 +189,10 @@ const MobileNav = () => {
   );
 };
 
-const MobileNavItem = ({ label, children, route }) => {
+const MobileNavItem = ({ label, children, route, active }) => {
   const { isOpen, onToggle } = useDisclosure();
+  const linkColor = useColorModeValue('white', 'gray.200');
+  const linkHoverColor = useColorModeValue('#7D443C', 'white');
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -203,8 +206,9 @@ const MobileNavItem = ({ label, children, route }) => {
           textDecoration: 'none',
         }}>
         <Text
-          fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}>
+          fontFamily={'Montserrat'}
+          fontWeight={500}
+          color={active ? linkHoverColor : linkColor}>
           {label}
         </Text>
         {children && (

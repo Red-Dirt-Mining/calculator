@@ -7,6 +7,7 @@ import {
 import './App.css';
 import Navbar from './components/navbar';
 import Basic from './components/basic';
+import FloatingSocialNavbar from './components/navSocial';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -22,6 +23,7 @@ function App() {
       <Router>
       <ChakraProvider theme={theme}>
         <Navbar />
+        <FloatingSocialNavbar />
         <Basic />
       </ChakraProvider>
       </Router>
