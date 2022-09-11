@@ -21,9 +21,9 @@ import { Form, Formik, Field } from "formik"
 import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
 import { BasicStats } from './basicStats'
-import { getHashrate, getBlockHeight/* , getDifficultyAdjustment */ } from "../services/blockchain"
 import initialValues from "../helpers/initialValues"
-const { createDataSet, convertUnits/* , calculateHalvingProgress, convertToTerra */ } = require("../services/crunchNumbers")
+const { getHashrate, getBlockHeight } = require("../services/blockchain")
+const { createDataSet, convertUnits } = require("../services/crunchNumbers")
 
 const StyledTooltip = ({ children, title, blurb, ...props }) => {
   return (
