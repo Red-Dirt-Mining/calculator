@@ -17,7 +17,6 @@ const initialValues = {
   hwDepreciation: 20,
   infraValue: 0,
   infraDepreciation: 0,
-  hodlRatio: 0,
   discountRate: 0,
 }
 
