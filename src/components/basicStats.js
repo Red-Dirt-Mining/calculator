@@ -36,7 +36,7 @@ const StatsCard = ({ title, stat, leftUnit, rightUnit }) => {
             lineHeight='150%'
             noOfLines={1}
             sx={{ fontFamily: "Montserrat", fontWeight: 500 }}
-            fontSize={{xl: '13px', lg: '9px', md: '12px', sm: '10px', base: '8px'}}
+            fontSize={{xl: '11px', lg: '9px', md: '12px', sm: '10px', base: '8px'}}
           >
             {title}
           </Box>
@@ -62,7 +62,7 @@ export const BasicStats = ({ data }) => {
       <StatsCard title={"CAPEX Break Even"} stat={data.breakevenMonth} rightUnit={data.breakevenMonth === 1 ? ' month' : ' months'} />
       <StatsCard title={"End Profit/Loss"} stat={data.endPL} rightUnit={' sats'} />
       <StatsCard title={"Total BTC Mined"} stat={data.totalMined} rightUnit={' sats'} />
-      <StatsCard title={"Performance"} stat={data.satsPerTh} rightUnit={' sats/TH'} />
+      <StatsCard title={"Hashrate Profitability"} stat={data.satsPerTh} rightUnit={' sats/TH'} />
     </SimpleGrid>
   )
 }

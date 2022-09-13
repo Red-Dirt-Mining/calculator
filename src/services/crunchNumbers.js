@@ -59,17 +59,17 @@ const createDataSet = (values = initialValues) => {
   // const difficultyIncrementPerEpoch = 0
   const annualPriceIncrease = parsedValues.priceIncrement * parsedValues.initialPrice / 100
   // const priceIncrementPerBlock = annualPriceIncrease / constants.blocksPerYear
-  const hwDepreciationPerMonth = parsedValues.hwValue * (parsedValues.hwDepreciation / 12) / 100
-  const infraDepreciationPerMonth = parsedValues.infraValue * (parsedValues.infraDepreciation / 12) / 100
+  const hwDepreciationSatsPerMonth = parsedValues.hwValue * (parsedValues.hwDepreciation / 12) / 100
+  const infraDepreciationSatsPerMonth = parsedValues.infraValue * (parsedValues.infraDepreciation / 12) / 100
   const networkHashrate = (difficulty) => {
     return difficulty * Math.pow(2, 32) / 600
   }
   const hourlyPowerDraw = parsedValues.powerConsumption / 1000
-  const powerCostPerHour = parsedValues.powerCostPerKwh * hourlyPowerDraw
-  const powerCostPerDay = powerCostPerHour * 24
+  const powerCostPerHourDollars = parsedValues.powerCostPerKwh * hourlyPowerDraw
+  const powerCostPerDayDollars = powerCostPerHourDollars * 24
 
-  const startUpPosition = parsedValues.hwValue + parsedValues.infraValue - parsedValues.capex
-  const capitalGoods = parsedValues.hwValue + parsedValues.infraValue
+  const startUpPositionSats = parsedValues.hwValue + parsedValues.infraValue - parsedValues.capex
+  const capitalGoodsSats = parsedValues.hwValue + parsedValues.infraValue
 
   let satsMined = 0
   let runningCostDollars = 0
@@ -80,38 +80,39 @@ const createDataSet = (values = initialValues) => {
   let breakevenElectricity = 0
 
   const timeSeriesData = Array.apply(null, Array(parsedValues.months)).map(function (x, i) { return { month: i + 1 } })
+
   timeSeriesData.forEach((d, i) => {
     const exchangeRate = parsedValues.initialPrice + ((annualPriceIncrease / 12) * i)
     const hashrate = networkHashrate(parsedValues.networkDifficulty + ((annualDifficultyIncrease / 12) * i))
     const hashrateShare = parsedValues.hashrate * constants.terraUnit / hashrate
 
-    const depreciationCalculation = hwDepreciationPerMonth * i + infraDepreciationPerMonth * i // FIXME: these can depreciate at different rates
-    const cumulativeDepreciation = depreciationCalculation > capitalGoods ? capitalGoods : depreciationCalculation
+    const depreciationCalculationSats = hwDepreciationSatsPerMonth * i + infraDepreciationSatsPerMonth * i // FIXME: these can depreciate at different rates
+    const cumulativeDepreciationSats = depreciationCalculationSats > capitalGoodsSats ? capitalGoodsSats : depreciationCalculationSats
 
-    const hwDepreciationCalculation = hwDepreciationPerMonth * i
-    const hwValue = hwDepreciationCalculation > parsedValues.hwValue ? 0 : parsedValues.hwValue - hwDepreciationCalculation
+    const hwdepreciationCalculationSats = hwDepreciationSatsPerMonth * i
+    const hwValueSats = hwdepreciationCalculationSats > parsedValues.hwValue ? 0 : parsedValues.hwValue - hwdepreciationCalculationSats
 
     // Net Profit Calculation
     const blockHeight = 736292 + (i * constants.blocksPerMonth)
     const subsidy = calculateSubsidy(blockHeight)
-    const monthlyRevenue = hashrateShare * constants.blocksPerMonth * (subsidy + parsedValues.txFees) * constants.satsPerBtc
-    satsMined += monthlyRevenue
-    const monthlyPowerExpense = (powerCostPerDay * constants.daysPerMonth) / exchangeRate * constants.satsPerBtc
-    const monthlyFees = (parsedValues.otherFees + parsedValues.poolFee) / 100 * monthlyRevenue
-    const monthlyOpex = parsedValues.opex / exchangeRate * constants.satsPerBtc
-    const monthlyExpenses = monthlyPowerExpense + monthlyFees + monthlyOpex
-    runningCostDollars += (monthlyExpenses / constants.satsPerBtc * exchangeRate)
-    const netProfit = monthlyRevenue - monthlyExpenses
-    runningPL += netProfit
+    const monthlyRevenueSats = hashrateShare * constants.blocksPerMonth * (subsidy + parsedValues.txFees) * constants.satsPerBtc
+    satsMined += monthlyRevenueSats
+    const monthlyPowerExpenseSats = (powerCostPerDayDollars * constants.daysPerMonth) / exchangeRate * constants.satsPerBtc
+    const monthlyFeesSats = (parsedValues.otherFees + parsedValues.poolFee) / 100 * monthlyRevenueSats
+    const monthlyOpexSats = parsedValues.opex / exchangeRate * constants.satsPerBtc
+    const monthlyExpensesSats = monthlyPowerExpenseSats + monthlyFeesSats + monthlyOpexSats
+    runningCostDollars += ((monthlyExpensesSats / constants.satsPerBtc) * exchangeRate)
+    const netProfitSats = monthlyRevenueSats - monthlyExpensesSats
+    runningPL += netProfitSats
 
     // Power Cost Breakeven Calculation
-    if (netProfit === 0 && netProfit < lowestMonthProfit) {
-      lowestMonthProfit = netProfit
+    if (netProfitSats === 0 && netProfitSats < lowestMonthProfit) {
+      lowestMonthProfit = netProfitSats
       breakevenElectricity = parsedValues.powerCostPerKwh
     }
-    if (lowestMonthProfit === 0 || netProfit < lowestMonthProfit) {
-      lowestMonthProfit = netProfit
-      const breakevenMonthlyPowerExpenses = monthlyPowerExpense + netProfit
+    if (lowestMonthProfit === 0 || netProfitSats < lowestMonthProfit) {
+      lowestMonthProfit = netProfitSats
+      const breakevenMonthlyPowerExpenses = monthlyPowerExpenseSats + netProfitSats
       breakevenElectricity = breakevenMonthlyPowerExpenses / constants.satsPerBtc * exchangeRate / constants.daysPerMonth / 24 / hourlyPowerDraw
     }
 
@@ -121,15 +122,15 @@ const createDataSet = (values = initialValues) => {
     }
 
     d.netProfitCumulative = runningPL
-    d.grossProfitCumulative = runningPL - cumulativeDepreciation
+    d.grossProfitCumulative = runningPL - cumulativeDepreciationSats
     // Line charts
-    d.hwValue = hwValue
-    d.cashflow = runningPL + startUpPosition
-    d.netPosition = runningPL + capitalGoods - cumulativeDepreciation
+    d.hwValue = hwValueSats
+    d.cashflow = runningPL + startUpPositionSats
+    d.netPosition = runningPL + capitalGoodsSats - cumulativeDepreciationSats
     d.breakeven = parsedValues.capex
     // Bar charts
-    d.monthlyRevenue = monthlyRevenue
-    d.netMonthlyProfit = netProfit
+    d.monthlyRevenue = monthlyRevenueSats
+    d.netMonthlyProfit = netProfitSats
   })
 
   if (breakevenMonth === 0 && runningPL > 0) {
@@ -139,12 +140,12 @@ const createDataSet = (values = initialValues) => {
       const hashrate = networkHashrate(parsedValues.networkDifficulty + ((annualDifficultyIncrease / 12) * i))
       const hashrateShare = parsedValues.hashrate * constants.terraUnit / hashrate
 
-      const monthlyRevenue = hashrateShare * constants.blocksPerMonth * (parsedValues.blockSubsidy + parsedValues.txFees) * constants.satsPerBtc
-      const monthlyPowerExpense = (powerCostPerDay * constants.daysPerMonth) / exchangeRate * constants.satsPerBtc
-      const monthlyFees = (parsedValues.otherFees + parsedValues.poolFee) / 100 * monthlyRevenue
-      const monthlyOpex = parsedValues.opex / exchangeRate * constants.satsPerBtc
-      const monthlyExpenses = monthlyPowerExpense + monthlyFees + monthlyOpex
-      breakevenPL += (monthlyRevenue - monthlyExpenses)
+      const monthlyRevenueSats = hashrateShare * constants.blocksPerMonth * (parsedValues.blockSubsidy + parsedValues.txFees) * constants.satsPerBtc
+      const monthlyPowerExpenseSats = (powerCostPerDayDollars * constants.daysPerMonth) / exchangeRate * constants.satsPerBtc
+      const monthlyFeesSats = (parsedValues.otherFees + parsedValues.poolFee) / 100 * monthlyRevenueSats
+      const monthlyOpexSats = parsedValues.opex / exchangeRate * constants.satsPerBtc
+      const monthlyExpensesSats = monthlyPowerExpenseSats + monthlyFeesSats + monthlyOpexSats
+      breakevenPL += (monthlyRevenueSats - monthlyExpensesSats)
       if (breakevenPL >= parsedValues.capex) {
         breakevenMonth = i + 1
         break
@@ -153,12 +154,12 @@ const createDataSet = (values = initialValues) => {
   }
 
   const otherData = {
-    costOfProduction: (satsMined / (runningCostDollars)).toFixed(2),
+    costOfProduction: ((runningCostDollars) / (satsMined/constants.satsPerBtc)).toFixed(2),
     breakevenElectricity: breakevenElectricity.toFixed(2),
     breakevenMonth,
     endPL: runningPL.toFixed(0),
     totalMined: satsMined.toFixed(0),
-    satsPerTh: (satsMined / parsedValues.hashrate).toFixed(0),
+    satsPerTh: (runningPL / parsedValues.hashrate).toFixed(0),
   }
 
   const data = {
