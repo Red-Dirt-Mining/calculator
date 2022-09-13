@@ -17,11 +17,12 @@ import {
   Flex,
   Spacer
 } from "@chakra-ui/react"
-import { Form, Formik, Field } from "formik"
+import { Form, Formik, ErrorMessage } from "formik"
 import { BasicBlurb } from "./basicBlurb"
 import { BasicGraph } from './basicGraph'
 import { BasicStats } from './basicStats'
 import initialValues from "../helpers/initialValues"
+import { validationSchema } from "../helpers/validationSchema"
 const { getHashrate, getBlockHeight } = require("../services/blockchain")
 const { createDataSet, convertUnits } = require("../services/crunchNumbers")
 
@@ -51,22 +52,20 @@ const StyledTooltip = ({ children, title, blurb, ...props }) => {
 
 const StyledField = ({ children, ...props }) => {
   return (
-    <Field
+    <Input
       width={{xl: 208, lg: 140, sm: 208, base: 140}}
       py={{base: 2}}
       mb={2}
-      as={Input}
       rounded={'md'}
       bg={'#181919'}
       color={'white'}
       opacity={0.6}
       size={'sm'}
-      type='number'
       focusBorderColor='#3A355A'
       {...props}
     >
       {children}
-    </Field>
+    </Input>
   )
 }
 
@@ -87,6 +86,7 @@ const FormComponent = ({setData}) => {
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         const dataSet = createDataSet(values)
         setData(dataSet)
@@ -120,6 +120,7 @@ const FormComponent = ({setData}) => {
                         pr={6}
                       />
                     </InputGroup>
+                    <ErrorMessage name='months' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -137,6 +138,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
                     </InputGroup>
+                    <ErrorMessage name='initialPrice' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -151,6 +153,7 @@ const FormComponent = ({setData}) => {
                       value={values.networkDifficulty}
                       onChange={handleChange}
                     />
+                    <ErrorMessage name='networkDifficulty' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -168,6 +171,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'TH/s'} />
                     </InputGroup>
+                    <ErrorMessage name='hashrate' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -185,6 +189,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3'pr={1} mr={-2} children={'W'} />
                     </InputGroup>
+                    <ErrorMessage name='powerConsumption' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -202,6 +207,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
                     </InputGroup>
+                    <ErrorMessage name='powerCostPerKwh' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -219,6 +225,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'BTC'} />
                     </InputGroup>
+                    <ErrorMessage name='blockSubsidy' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -236,6 +243,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' mr={-2} pr={1} children={'%'} />
                     </InputGroup>
+                    <ErrorMessage name='poolFee' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -253,6 +261,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'BTC'} />
                     </InputGroup>
+                    <ErrorMessage name='txFees' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -270,6 +279,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' mr={-2} pr={1} children={'%'} />
                     </InputGroup>
+                    <ErrorMessage name='otherFees' />
                   </FormControl>
                 </StyledTooltip>
               </VStack>
@@ -292,6 +302,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                     </InputGroup>
+                    <ErrorMessage name='difficultyIncrement' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -309,6 +320,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                     </InputGroup>
+                    <ErrorMessage name='priceIncrement' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -326,6 +338,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
                     </InputGroup>
+                    <ErrorMessage name='capex' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -343,6 +356,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'USD'} />
                     </InputGroup>
+                    <ErrorMessage name='opex' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -360,6 +374,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3'pr={1} children={'sats'} />
                     </InputGroup>
+                    <ErrorMessage name='hwValue' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -377,6 +392,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                     </InputGroup>
+                    <ErrorMessage name='hwDepreciation' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -394,6 +410,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={1} children={'sats'} />
                     </InputGroup>
+                    <ErrorMessage name='infraValue' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -411,6 +428,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                     </InputGroup>
+                    <ErrorMessage name='infraDepreciation' />
                   </FormControl>
                 </StyledTooltip>
                 <StyledTooltip
@@ -429,6 +447,7 @@ const FormComponent = ({setData}) => {
                       />
                       <InputRightElement color={'white'} opacity={0.6} pb='3' pr={6} children={'%/year'} />
                     </InputGroup>
+                    <ErrorMessage name='discountRate' />
                   </FormControl>
                 </StyledTooltip>
                 <FormControl>
