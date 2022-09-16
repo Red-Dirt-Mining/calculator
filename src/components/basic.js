@@ -82,13 +82,13 @@ const StyledFormLabel = ({ children, ...props }) => {
   )
 }
 
-const FormComponent = ({setData}) => {
+const FormComponent = ({ setData, height }) => {
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        const dataSet = createDataSet(values)
+        const dataSet = createDataSet({ values, height })
         setData(dataSet)
         setSubmitting(false)
       }}
@@ -611,7 +611,7 @@ const Basic = () => {
   }
   useEffect(() => {
     loadData()
-    setData(createDataSet(initialValues))
+    setData(createDataSet({ values: initialValues, height }))
     return () => { }
   }, [height])
 
@@ -631,7 +631,7 @@ const Basic = () => {
           direction={{ base: 'column', lg: 'row' }}>
             <Spacer />
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-            <FormComponent setData={setData} />
+            <FormComponent setData={setData} height={height} />
             <IncomeStatement active={active} payload={payload} label={label} />
           </Stack>
           <Stack flex={1} spacing={{ base: 5, md: 10 }}>

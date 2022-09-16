@@ -49,7 +49,7 @@ const convertUnits = (value) => {
   return value
 }
 
-const createDataSet = (values = initialValues) => {
+const createDataSet = ({ values = initialValues, height }) => {
   const parsedValues = Object.keys(values).reduce((acc, key) => {
     acc[key] = parseFloat(values[key])
     return acc
@@ -93,7 +93,7 @@ const createDataSet = (values = initialValues) => {
     const hwValueSats = hwdepreciationCalculationSats > parsedValues.hwValue ? 0 : parsedValues.hwValue - hwdepreciationCalculationSats
 
     // Net Profit Calculation
-    const blockHeight = 736292 + (i * constants.blocksPerMonth)
+    const blockHeight = height + (i * constants.blocksPerMonth)
     const subsidy = calculateSubsidy(blockHeight)
     const monthlyRevenueSats = hashrateShare * constants.blocksPerMonth * (subsidy + parsedValues.txFees) * constants.satsPerBtc
     satsMined += monthlyRevenueSats
