@@ -17,6 +17,7 @@ import {
   ChakraProvider,
   theme,
 } from '@chakra-ui/react';
+import Footer from './components/footer';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Navbar />
         <FloatingSocialNavbar />
         <Basic />
+        <Footer />
       </ChakraProvider>
       </Router>
   );
