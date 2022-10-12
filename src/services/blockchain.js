@@ -1,4 +1,6 @@
-const mempoolUrl = 'https://mempool.space/api/';
+const mempoolUrl = process.env.REACT_APP_MEMPOOL_SPACE_HOST && process.env.REACT_APP_MEMPOOL_SPACE_PORT
+  ? URL.parse(`${process.env.REACT_APP_MEMPOOL_SPACE_HOST}:${process.env.REACT_APP_MEMPOOL_SPACE_PORT}/api/`)
+  : process.env.REACT_APP_MEMPOOL_SPACE_BASEURL
 
 const blockHeight = 'blocks/tip/height'
 const hashrate = 'v1/mining/hashrate/3d'

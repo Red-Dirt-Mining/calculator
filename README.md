@@ -1,6 +1,9 @@
 # TL;DR How do I get this thing running?
 
-Clone the repository to your machine and from the directory run `npm install` then `npm start`
+- Clone the repository to your machine.
+- Copy and rename the `.env-sample` file to `.env`.
+- Uncomment and set your own values for `REACT_APP_MEMPOOL_SPACE_HOST` and `REACT_APP_MEMPOOL_SPACE_PORT`, if you have them.
+- From the main directory run `npm install` then `npm start`
 
 # Contributing
 
