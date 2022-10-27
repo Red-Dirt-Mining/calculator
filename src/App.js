@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar';
 import Basic from './components/basic';
@@ -18,13 +15,11 @@ import Footer from './components/footer';
 
 function App() {
   return (
-      <Router>
-      <ChakraProvider theme={theme}>
-        <Navbar />
-        <Basic />
-        <Footer />
-      </ChakraProvider>
-      </Router>
+    <ChakraProvider theme={theme}>
+      <Navbar />
+      <Basic />
+      <Footer />
+    </ChakraProvider>
   );
 }
 
