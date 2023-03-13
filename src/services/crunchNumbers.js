@@ -102,17 +102,17 @@ const createDataSet = ({ values = initialValues, height }) => {
     const monthlyOpexSats = parsedValues.opex / exchangeRate * constants.satsPerBtc
     const monthlyExpensesSats = monthlyPowerExpenseSats + monthlyFeesSats + monthlyOpexSats
     runningCostDollars += ((monthlyExpensesSats / constants.satsPerBtc) * exchangeRate)
-    const netProfitSats = monthlyRevenueSats - monthlyExpensesSats
-    runningPL += netProfitSats
+    const grossProfitSats = monthlyRevenueSats - monthlyExpensesSats
+    runningPL += grossProfitSats
 
     // Power Cost Breakeven Calculation
-    if (netProfitSats === 0 && netProfitSats < lowestMonthProfit) {
-      lowestMonthProfit = netProfitSats
+    if (grossProfitSats === 0 && grossProfitSats < lowestMonthProfit) {
+      lowestMonthProfit = grossProfitSats
       breakevenElectricity = parsedValues.powerCostPerKwh
     }
-    if (lowestMonthProfit === 0 || netProfitSats < lowestMonthProfit) {
-      lowestMonthProfit = netProfitSats
-      const breakevenMonthlyPowerExpenses = monthlyPowerExpenseSats + netProfitSats
+    if (lowestMonthProfit === 0 || grossProfitSats < lowestMonthProfit) {
+      lowestMonthProfit = grossProfitSats
+      const breakevenMonthlyPowerExpenses = monthlyPowerExpenseSats + grossProfitSats
       breakevenElectricity = breakevenMonthlyPowerExpenses / constants.satsPerBtc * exchangeRate / constants.daysPerMonth / 24 / hourlyPowerDraw
     }
 
@@ -121,8 +121,8 @@ const createDataSet = ({ values = initialValues, height }) => {
       breakevenMonth = i + 1
     }
 
-    d.netProfitCumulative = runningPL
-    d.grossProfitCumulative = runningPL - cumulativeDepreciationSats
+    d.grossProfitCumulative = runningPL
+    d.netProfitCumulative = runningPL - cumulativeDepreciationSats
     // Line charts
     d.hwValue = hwValueSats
     d.cashflow = runningPL + startUpPositionSats
@@ -130,7 +130,7 @@ const createDataSet = ({ values = initialValues, height }) => {
     d.breakeven = parsedValues.capex
     // Bar charts
     d.monthlyRevenue = monthlyRevenueSats
-    d.netMonthlyProfit = netProfitSats
+    d.grossMonthlyProfit = grossProfitSats
   })
 
   if (breakevenMonth === 0 && runningPL > 0) {
