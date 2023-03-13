@@ -138,13 +138,13 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
             content={<CustomTooltip setActive={setActive} setPayload={setPayload} setLabel={setLabel} />}
             cursor={{ strokeDasharray: '3 3' }}
           />
-          <Bar dataKey="monthlyRevenue" name='Net Monthly Revenue' barSize={20} fill={graphColors.monthlyRevenue} yAxisId='right' />
-          <Bar dataKey="netMonthlyProfit" name='Net Monthly Profit' barSize={20} fill={graphColors.netMonthlyProfit} yAxisId='right' />
+          <Bar dataKey="monthlyRevenue" name='Monthly Revenue' barSize={20} fill={graphColors.monthlyRevenue} yAxisId='right' />
+          <Bar dataKey="netMonthlyProfit" name='Gross Monthly Profit' barSize={20} fill={graphColors.netMonthlyProfit} yAxisId='right' />
           <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke={graphColors.hardware} fill={graphColors.hardware} strokeWidth={3} dot={null} />
-          <Line type="monotone" dataKey="cashflow" name='Free Cashflow' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="cashflow" name='Cash Position' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="netPosition" name='Net Position' stroke={graphColors.netPosition} fill={graphColors.netPosition} strokeWidth={3} dot={null} />
-          <Line type="monotone" dataKey="netProfitCumulative" name='Cumulative Net Profit' stroke={graphColors.netProfitCumulative} fill={graphColors.netProfitCumulative} strokeWidth={3} dot={null} />
-          <Line type="monotone" dataKey="grossProfitCumulative" name='Cumulative Gross Profit' stroke={graphColors.grossProfitCumulative} fill={graphColors.grossProfitCumulative} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="netProfitCumulative" name='Cumulative Gross Profit' stroke={graphColors.netProfitCumulative} fill={graphColors.netProfitCumulative} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="grossProfitCumulative" name='Cumulative Net Profit' stroke={graphColors.grossProfitCumulative} fill={graphColors.grossProfitCumulative} strokeWidth={3} dot={null} />
           <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeWidth={2} strokeDasharray="4 4">
             <Label fill={graphColors.breakeven} position='top' content={CustomLabel}></Label>
           </ReferenceLine>
