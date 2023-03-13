@@ -20,10 +20,10 @@ const graphColors = {
   hardware: '#07535F',
   netPosition: '#2F8F9E',
   breakeven: '#7D443C',
-  netMonthlyProfit: '#638269',
+  grossMonthlyProfit: '#638269',
   monthlyRevenue: '#FAF4D4',
-  netProfitCumulative: '#777696',
-  grossProfitCumulative: '#CD5C5C',
+  grossProfitCumulative: '#777696',
+  netProfitCumulative: '#CD5C5C',
 }
 
 const renderCusomLegend = (props) => {
@@ -139,12 +139,12 @@ export const BasicGraph = ({ data, setActive, setPayload, setLabel }) => {
             cursor={{ strokeDasharray: '3 3' }}
           />
           <Bar dataKey="monthlyRevenue" name='Monthly Revenue' barSize={20} fill={graphColors.monthlyRevenue} yAxisId='right' />
-          <Bar dataKey="netMonthlyProfit" name='Gross Monthly Profit' barSize={20} fill={graphColors.netMonthlyProfit} yAxisId='right' />
+          <Bar dataKey="grossMonthlyProfit" name='Gross Monthly Profit' barSize={20} fill={graphColors.grossMonthlyProfit} yAxisId='right' />
           <Line type="monotone" dataKey="hwValue" name='Hardware Value' stroke={graphColors.hardware} fill={graphColors.hardware} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="cashflow" name='Cash Position' stroke={graphColors.cashflow} fill={graphColors.cashflow} strokeWidth={3} dot={null} />
           <Line type="monotone" dataKey="netPosition" name='Net Position' stroke={graphColors.netPosition} fill={graphColors.netPosition} strokeWidth={3} dot={null} />
-          <Line type="monotone" dataKey="netProfitCumulative" name='Cumulative Gross Profit' stroke={graphColors.netProfitCumulative} fill={graphColors.netProfitCumulative} strokeWidth={3} dot={null} />
-          <Line type="monotone" dataKey="grossProfitCumulative" name='Cumulative Net Profit' stroke={graphColors.grossProfitCumulative} fill={graphColors.grossProfitCumulative} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="grossProfitCumulative" name='Cumulative Gross Profit' stroke={graphColors.grossProfitCumulative} fill={graphColors.grossProfitCumulative} strokeWidth={3} dot={null} />
+          <Line type="monotone" dataKey="netProfitCumulative" name='Cumulative Net Profit' stroke={graphColors.netProfitCumulative} fill={graphColors.netProfitCumulative} strokeWidth={3} dot={null} />
           <ReferenceLine y={breakeven} stroke={graphColors.breakeven} strokeWidth={2} strokeDasharray="4 4">
             <Label fill={graphColors.breakeven} position='top' content={CustomLabel}></Label>
           </ReferenceLine>
